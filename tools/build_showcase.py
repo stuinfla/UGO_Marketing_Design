@@ -2,16 +2,38 @@
 
     (cd site && npm run build) && python tools/build_showcase.py
 
-Output: index.html (gallery) + site/ (the React website) + system/ (tokens,
-fonts, foundation cards, slides, component cards). Upload the folder to any
-static host. It contains the licensed brand fonts, so check the font licence
-before publishing it anywhere public.
+Output:
+  index.html            gallery of every card, slide and the website
+  use-with-claude.html  plain-English instructions with copy-paste prompts
+  claude.md, llms.txt   the brand brief Claude reads when given the link
+  kit/                  the skill's assets + ugo.css (one stylesheet, absolute font URLs)
+  site/                 the React website
+  system/               tokens, foundation cards, slides, component cards
+  ugo-university-design.zip  the Claude skill
+
+Set UGO_BASE_URL if the site moves; claude.md uses absolute links so Claude
+can fetch assets from anywhere.
 """
 import html, os, re, shutil
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT = os.path.join(ROOT, "project")
 OUT = os.path.join(ROOT, "showcase-dist")
+SKILL = os.path.join(PROJECT, "dist", "skill", "ugo-university-design")
+WEB = os.path.join(ROOT, "tools", "web")
+BASE = os.environ.get("UGO_BASE_URL", "https://ugo-brand.netlify.app").rstrip("/")
+
+HEADERS = """/kit/*
+  Access-Control-Allow-Origin: *
+/system/*
+  Access-Control-Allow-Origin: *
+/claude.md
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+  Access-Control-Allow-Origin: *
+"""
 
 SYSTEM_PARTS = ["styles.css", "tokens", "assets", "guidelines", "components", "_ds_bundle.js",
                 os.path.join("ui_kits", "slides")]
@@ -25,6 +47,30 @@ def card_meta(path):
     return attrs.get("group", "Other"), name, attrs.get("subtitle", ""), int(w), int(h)
 
 
+def flat_css():
+    """Inline the skill's @import chain into one file with absolute font URLs."""
+    brand = os.path.join(SKILL, "brand")
+    parts = []
+    for name in re.findall(r'@import\s+"([^"]+)"', open(os.path.join(brand, "styles.css")).read()):
+        css = open(os.path.join(brand, name), encoding="utf-8").read()
+        parts.append(css.replace('url("../assets/', f'url("{BASE}/kit/assets/'))
+    return "/* U-GO University brand stylesheet: " + BASE + "/kit/ugo.css */\n" + "\n".join(parts)
+
+
+def build_kit():
+    shutil.copytree(SKILL, os.path.join(OUT, "kit"), ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
+    open(os.path.join(OUT, "kit", "ugo.css"), "w", encoding="utf-8").write(flat_css())
+    for name in ("claude.md", "use-with-claude.html"):
+        text = open(os.path.join(WEB, name), encoding="utf-8").read().replace("{{BASE}}", BASE)
+        open(os.path.join(OUT, name), "w", encoding="utf-8").write(text)
+    open(os.path.join(OUT, "llms.txt"), "w").write(
+        "# U-GO University brand\n\n> Official brand kit. To build anything for U-GO, read and follow:\n\n"
+        f"- [Brand kit for Claude]({BASE}/claude.md)\n- [Stylesheet]({BASE}/kit/ugo.css)\n")
+    for f in ("ugo-university-design.zip", "U-GO SETUP - read me first.txt"):
+        shutil.copy2(os.path.join(ROOT, "release", f), os.path.join(OUT, f))
+    open(os.path.join(OUT, "_headers"), "w").write(HEADERS)
+
+
 def main():
     site_dist = os.path.join(ROOT, "site", "dist")
     assert os.path.isdir(site_dist), "build the site first: (cd site && npm run build)"
@@ -35,6 +81,7 @@ def main():
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         (shutil.copytree if os.path.isdir(src) else shutil.copy2)(src, dst)
 
+    build_kit()
     groups = {}
     for dirpath, _, files in os.walk(os.path.join(OUT, "system")):
         for f in sorted(files):
@@ -74,6 +121,8 @@ TEMPLATE = """<!doctype html>
   .hero h1{font-family:var(--font-serif);text-transform:none;letter-spacing:0;font-weight:400;font-size:clamp(34px,5vw,60px);line-height:1.04}
   .cta{display:inline-block;margin-top:8px;padding:15px 30px;border-radius:999px;background:var(--accent);color:var(--accent-contrast);font-family:var(--font-display);font-weight:900;text-transform:uppercase;letter-spacing:.09em;font-size:14px}
   .cta:hover{text-decoration:none;background:var(--accent-hover)}
+  .cta.ghost{background:transparent;color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent);margin-left:8px}
+  .cta.ghost:hover{background:var(--accent);color:var(--accent-contrast)}
   h2{margin:56px 0 18px;font-size:var(--text-xl)}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:24px}
   .card{display:flex;flex-direction:column;gap:4px;color:var(--text-body)}
@@ -83,11 +132,12 @@ TEMPLATE = """<!doctype html>
   .card b{font-family:var(--font-display);font-weight:900;text-transform:uppercase;letter-spacing:.06em;font-size:13px;color:var(--text-primary)}
   .card span{font-size:14px;color:var(--text-muted)}
 </style></head><body>
-<header><img src="system/assets/logos/UGO_Logo_horizontal_trim.png" alt="U-GO University"><span class="ugo-eyebrow">Brand system</span></header>
+<header><img src="system/assets/logos/UGO_Logo_horizontal_trim.png" alt="U-GO University"><a class="ugo-eyebrow" href="use-with-claude.html">Use with Claude</a></header>
 <section class="hero">
   <h1>Talent is universal,<br><em>opportunity is not.</em></h1>
   <p>The U-GO University brand in one place: colours, type, the watercolour silhouettes, components, slide layouts and the website.</p>
-  <a class="cta" href="site/index.html">Open the website</a>
+  <a class="cta" href="use-with-claude.html">Use the brand with Claude</a>
+  <a class="cta ghost" href="site/index.html">See the website</a>
 </section>
 {{SECTIONS}}
 <script>

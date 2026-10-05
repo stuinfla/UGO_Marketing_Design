@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Use U-GO with Claude</title>
+<link rel="icon" href="kit/assets/logos/UGO_Favicon.png">
+<link rel="stylesheet" href="kit/ugo.css">
+<style>
+  body{padding:0 clamp(16px,5vw,56px) 72px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:28px 0;border-bottom:1px solid var(--border-hairline)}
+  .top img{height:34px;width:auto}
+  .top a{font-family:var(--font-display);font-weight:900;text-transform:uppercase;letter-spacing:.06em;font-size:13px;color:var(--text-primary)}
+  main{max-width:860px;margin:0 auto}
+  h1{font-family:var(--font-serif);text-transform:none;letter-spacing:0;font-weight:400;font-size:clamp(34px,5vw,56px);line-height:1.05;margin:48px 0 12px}
+  .lead{font-size:19px;max-width:60ch}
+  .step{background:var(--ugo-white);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);padding:clamp(20px,4vw,34px);margin-top:28px}
+  .step h2{font-size:22px;margin:6px 0 10px}
+  .tag{display:inline-block;font-family:var(--font-display);font-weight:900;text-transform:uppercase;letter-spacing:.12em;font-size:12px;padding:6px 12px;border-radius:999px;background:var(--ugo-light-teal);color:var(--ugo-royal-blue)}
+  .tag.alt{background:var(--ugo-orange)}
+  .prompt{position:relative;margin:16px 0 6px;padding:18px 20px;padding-right:110px;border-radius:var(--radius-md);background:var(--ugo-beige);border:1.5px solid var(--border-hairline);font-family:var(--font-body);font-weight:400;font-size:16px;color:var(--text-primary);line-height:1.5;white-space:pre-wrap;word-break:break-word}
+  .copy{position:absolute;top:12px;right:12px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-family:var(--font-display);font-weight:900;text-transform:uppercase;letter-spacing:.09em;font-size:13px;padding:11px 20px;border-radius:999px;border:1.5px solid var(--ugo-royal-blue);background:var(--ugo-royal-blue);color:var(--ugo-beige);cursor:pointer;text-decoration:none}
+  .btn:hover{background:var(--accent-hover);text-decoration:none}
+  .btn.ghost{background:transparent;color:var(--ugo-royal-blue)}
+  .btn.ghost:hover{background:var(--ugo-royal-blue);color:var(--ugo-beige)}
+  ol{padding-left:1.2em;margin:10px 0 0}
+  li{margin:8px 0;max-width:none}
+  .note{font-size:14px;color:var(--text-muted);margin-top:12px}
+  .examples{display:grid;gap:10px;margin-top:12px}
+  .ex{font-family:var(--font-serif);font-style:italic;font-size:17px;color:var(--text-primary)}
+  @media (max-width:560px){.prompt{padding-right:20px;padding-top:56px}}
+</style></head><body>
+<div class="top"><a href="index.html"><img src="kit/assets/logos/UGO_Logo_horizontal_trim.png" alt="U-GO University"></a><a href="index.html">See the brand</a></div>
+<main>
+  <h1>Make anything on-brand,<br><em>straight from Claude.</em></h1>
+  <p class="lead">No design skills and no special Claude plan needed. Pick option 1 to start now, or set up option 2 once to get finished PowerPoint and Word files.</p>
+
+  <section class="step">
+    <span class="tag">Option 1 · start in 10 seconds</span>
+    <h2>Paste this into any Claude chat</h2>
+    <p>Copy the text, paste it into a new chat at claude.ai, and replace the end with what you need.</p>
+    <div class="prompt" id="p1">Read {{BASE}}/claude.md and follow the U-GO brand rules there exactly, using the hosted fonts, logo and silhouette images it links to. Then build me: a one-page landing page for our 2027 scholarship appeal.<button class="btn copy" data-copy="p1">Copy</button></div>
+    <p class="note">Works for web pages, one-pagers, emails, social posts and copywriting. If Claude says it can't open the link, turn on web search in the chat (the “+” or tools menu), or use option 2.</p>
+    <div class="examples">
+      <span class="ex">…build me: three LinkedIn posts announcing 50 new scholars.</span>
+      <span class="ex">…build me: a donor thank-you email for our Nepal programme.</span>
+      <span class="ex">…build me: an event poster for our London dinner, 1080×1350.</span>
+    </div>
+  </section>
+
+  <section class="step">
+    <span class="tag alt">Option 2 · best results, 2-minute setup</span>
+    <h2>Add the U-GO skill to your Claude</h2>
+    <p>Gives Claude the real fonts, logos and silhouettes built in, plus a PowerPoint builder. You do this once and it works in every chat.</p>
+    <p><a class="btn" href="ugo-university-design.zip" download>Download the U-GO skill</a></p>
+    <ol>
+      <li>Don't unzip the file.</li>
+      <li>In Claude, click your name (bottom left) → <b>Settings → Capabilities</b>, and turn on <b>Code execution and file creation</b>.</li>
+      <li>Go to <b>Customize → Skills</b>, click <b>+ / Upload skill</b>, and choose <b>ugo-university-design.zip</b>. Make sure it's switched on.</li>
+      <li>In any chat, start your request with <b>“U-GO:”</b></li>
+    </ol>
+    <div class="prompt" id="p2">U-GO: make a 6-slide PowerPoint for donors about our Nepal programme.<button class="btn copy" data-copy="p2">Copy</button></div>
+    <p class="note">Works on Free, Pro and Max plans. In PowerPoint, the brand fonts only show if they're installed on your computer; otherwise similar standard fonts are used.</p>
+  </section>
+
+  <section class="step">
+    <span class="tag">For developers</span>
+    <h2>Claude Code, Claude Design, or your own code</h2>
+    <p>Everything is public on GitHub: tokens, fonts, React components, the website and the skill. Open the repo in Claude Code and the brand loads automatically, or import it into Claude Design as a design system.</p>
+    <p><a class="btn ghost" href="https://github.com/stuinfla/UGO_Marketing_Design">Open on GitHub</a></p>
+  </section>
+</main>
+<script>
+  document.querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const el = document.getElementById(b.dataset.copy);
+    const text = [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join("").trim();
+    try { await navigator.clipboard.writeText(text); b.textContent = "Copied"; } catch { b.textContent = "Select & copy"; }
+    setTimeout(() => (b.textContent = "Copy"), 1800);
+  }));
+</script>
+</body></html>

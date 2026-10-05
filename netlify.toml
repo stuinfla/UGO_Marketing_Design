@@ -1,0 +1,8 @@
+# Builds the public brand site (https://ugo-brand.netlify.app):
+# the React website, then the showcase/kit/claude.md bundle around it.
+[build]
+  command = "cd site && npm ci && npm run build && cd .. && python3 tools/build_showcase.py"
+  publish = "showcase-dist"
+
+[build.environment]
+  NODE_VERSION = "22"
