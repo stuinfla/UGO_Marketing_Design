@@ -34,6 +34,12 @@ HEADERS = """/kit/*
 /claude.md
   Content-Type: text/markdown; charset=utf-8
   Access-Control-Allow-Origin: *
+/ai
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
+/brand
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
 /llms.txt
   Content-Type: text/plain; charset=utf-8
   Access-Control-Allow-Origin: *
@@ -83,14 +89,18 @@ def build_kit():
     open(os.path.join(OUT, "kit", "ugo.css"), "w", encoding="utf-8").write(flat_css())
     open(os.path.join(OUT, "claude.md"), "w", encoding="utf-8").write(render_brief())
     text = open(os.path.join(WEB, "use-with-claude.html"), encoding="utf-8").read()
-    text = text.replace("{{BRIEF}}", CDN + "/ugo-brand.md").replace("{{BASE}}", BASE)
+    text = text.replace("{{BASE}}", BASE)
     open(os.path.join(OUT, "use-with-claude.html"), "w", encoding="utf-8").write(text)
     open(os.path.join(OUT, "llms.txt"), "w").write(
         "# U-GO University brand\n\n> Official brand kit. To build anything for U-GO, read and follow:\n\n"
         f"- [Brand kit for Claude]({CDN}/ugo-brand.md)\n- [Stylesheet]({CDN}/kit/ugo.css)\n")
     for f in ("ugo-university-design.zip", "U-GO SETUP - read me first.txt"):
         shutil.copy2(os.path.join(ROOT, "release", f), os.path.join(OUT, f))
+    shutil.copy2(os.path.join(ROOT, "release", "ugo-university-design.zip"), os.path.join(OUT, "brand-pack.zip"))
     open(os.path.join(OUT, "_headers"), "w").write(HEADERS)
+    # Short links an assistant can be pointed at: /ai and /brand serve the brief.
+    open(os.path.join(OUT, "_redirects"), "w").write(
+        "/ai      /claude.md  200\n/ai/     /claude.md  200\n/brand   /claude.md  200\n/brand/  /claude.md  200\n")
 
 
 def main():
@@ -125,7 +135,7 @@ def main():
                 f'</div><b>{html.escape(name)}</b><span>{html.escape(sub)}</span></a>')
         sections.append(f'<h2>{html.escape(g)}</h2><div class="grid">{"".join(cards)}</div>')
 
-    page = TEMPLATE.replace("{{SECTIONS}}", "\n".join(sections))
+    page = TEMPLATE.replace("{{SECTIONS}}", "\n".join(sections)).replace("{{BASE}}", BASE)
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(page)
     n = sum(len(v) for v in groups.values())
     print(f"wrote {os.path.relpath(OUT, ROOT)}/ ({n} cards)")
@@ -133,7 +143,7 @@ def main():
 
 TEMPLATE = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>U-GO Brand System</title>
+<title>U-GO Brand Kit</title>
 <link rel="icon" href="system/assets/logos/UGO_Favicon.png">
 <link rel="stylesheet" href="system/styles.css">
 <style>
@@ -147,6 +157,11 @@ TEMPLATE = """<!doctype html>
   .cta.ghost{background:transparent;color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent);margin-left:8px}
   .cta.ghost:hover{background:var(--accent);color:var(--accent-contrast)}
   h2{margin:56px 0 18px;font-size:var(--text-xl)}
+  .oneline{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0 12px;padding:18px 20px;background:var(--ugo-white);border-radius:var(--radius-md);box-shadow:var(--shadow-md);max-width:900px}
+  .oneline code{flex:1 1 320px;font-family:var(--font-body);font-weight:400;font-size:18px;color:var(--text-primary);line-height:1.45;word-break:break-word}
+  .copy{font-family:var(--font-display);font-weight:900;text-transform:uppercase;letter-spacing:.09em;font-size:13px;padding:12px 22px;border-radius:999px;border:0;background:var(--accent);color:var(--accent-contrast);cursor:pointer}
+  .small{font-size:15px;color:var(--text-muted);max-width:70ch}
+  .small a{text-decoration:underline}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:24px}
   .card{display:flex;flex-direction:column;gap:4px;color:var(--text-body)}
   .card:hover{text-decoration:none}
@@ -155,15 +170,22 @@ TEMPLATE = """<!doctype html>
   .card b{font-family:var(--font-display);font-weight:900;text-transform:uppercase;letter-spacing:.06em;font-size:13px;color:var(--text-primary)}
   .card span{font-size:14px;color:var(--text-muted)}
 </style></head><body>
-<header><img src="system/assets/logos/UGO_Logo_horizontal_trim.png" alt="U-GO University"><a class="ugo-eyebrow" href="use-with-claude.html">Use with Claude</a></header>
+<header><img src="system/assets/logos/UGO_Logo_horizontal_trim.png" alt="U-GO University"><a class="ugo-eyebrow" href="use-with-claude.html">How to use it</a></header>
 <section class="hero">
-  <h1>Talent is universal,<br><em>opportunity is not.</em></h1>
-  <p>The U-GO University brand in one place: colours, type, the watercolour silhouettes, components, slide layouts and the website.</p>
-  <a class="cta" href="use-with-claude.html">Use the brand with Claude</a>
+  <h1>Make anything on-brand,<br><em>in one line.</em></h1>
+  <p>Paste this into Claude, ChatGPT or any AI chat. Change the end to whatever you need.</p>
+  <div class="oneline"><code id="line">Read {{BASE}}/ai and use the U-GO brand to make me a 6-slide PowerPoint about our Nepal programme.</code><button class="copy" data-copy="line">Copy</button></div>
+  <p class="small">For PowerPoint, Word or PDF files, also attach the <a href="brand-pack.zip" download>brand pack</a> (one zip, don't unzip it). Then the real logo and silhouettes go into the file.</p>
+  <a class="cta" href="use-with-claude.html">More ways to use it</a>
   <a class="cta ghost" href="site/index.html">See the website</a>
 </section>
 {{SECTIONS}}
 <script>
+  document.querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
+    const t = document.getElementById(b.dataset.copy).textContent;
+    try { await navigator.clipboard.writeText(t); b.textContent = "Copied"; } catch { b.textContent = "Select & copy"; }
+    setTimeout(() => (b.textContent = "Copy"), 1800);
+  }));
   // Scale each preview to its card's real width.
   const fit = (f) => { const s = f.clientWidth / f.dataset.w; f.style.height = f.dataset.h * s + "px"; f.firstChild.style.transform = `scale(${s})`; };
   const ro = new ResizeObserver((es) => es.forEach((e) => fit(e.target)));

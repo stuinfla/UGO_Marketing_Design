@@ -1,6 +1,12 @@
-# U-GO University brand kit for Claude
+# U-GO University brand kit for AI assistants
 
-You have been pointed at the official U-GO University brand. Follow it exactly for whatever the user asks you to build: a web page, landing page, one-pager, PowerPoint, Word document, PDF, poster, social post, email or app. Everything you need is on this page or linked from it. All links are public and need no login.
+For Claude, ChatGPT, Gemini, Copilot or any other assistant. You have been pointed at the official U-GO University brand. Follow it exactly for whatever the user asks you to build: a web page, landing page, one-pager, PowerPoint, Word document, PDF, poster, social post, email or app. Everything you need is on this page or linked from it. All links are public and need no login.
+
+**Before you start:** if you're about to create a file (PowerPoint, Word, PDF, image) in a code sandbox, first check that you can download one of the image links below. Many sandboxes can't reach the internet. If yours can't, ask the user once, in plain words:
+
+> "To put the real U-GO logo and silhouettes in your file, please download the brand pack from {{BASE}}/brand-pack.zip and attach it here (don't unzip it)."
+
+The pack contains every logo, silhouette, font and colour file, plus `scripts/ugo_pptx.py`, a ready-made on-brand PowerPoint builder (python-pptx; read the docstring at the top of the file). If the user can't attach it, build the file anyway: use the colours and fonts below, put the U-GO name in heavy uppercase type where the logo goes, and say what's missing. Never draw your own logo or faces.
 
 U-GO University is a non-profit that partners with ambitious donors at scale to fund higher-education scholarships for talented young women in low-income countries: Pakistan, India, Bangladesh, Cambodia, Vietnam, the Philippines, Indonesia, Nepal and Tanzania. Tagline: **"Talent is universal, opportunity is not."** Website: ugouniversity.org · Contact: contact@ugouniversity.org.
 
@@ -82,7 +88,7 @@ Buttons: `font-family: var(--font-display); text-transform: uppercase; letter-sp
 5. **Quote:** beige; large Simula italic quote; uppercase dark-teal attribution; silhouette on the right.
 6. **Closing:** Royal Blue; centred beige Simula line "Make opportunity as universal as talent."; contact line in light teal; light logo.
 
-Download the logo and silhouette PNGs from the URLs above and place them as pictures. PowerPoint can't embed web fonts, so use MD IO / Simula / David if installed, otherwise Arial Black / Georgia / Calibri Light. If you can't download files in your environment, tell the user to install the U-GO skill instead ({{BASE}}/use-with-claude.html). It contains every asset and a PowerPoint builder script.
+Download the logo and silhouette PNGs from the URLs above and place them as pictures. PowerPoint can't embed web fonts, so use MD IO / Simula / David if installed, otherwise Arial Black / Georgia / Calibri Light. If you can't download them, ask for the brand pack as described at the top. If it's attached, unzip it and use `scripts/ugo_pptx.py`, which builds all six layouts above with the real images.
 
 ### Word document or PDF
 Headings in MD IO (fallback Arial Black), uppercase, Royal Blue. Body in David (fallback Calibri Light), 11pt, `#34403F`. Pull quotes in Simula italic (fallback Georgia). Logo in the header; a silhouette on the cover. For a PDF, build the HTML version above and print it to PDF.
