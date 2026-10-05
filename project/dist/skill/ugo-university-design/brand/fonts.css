@@ -1,0 +1,55 @@
+/* ============================================================
+   U-GO University — Webfonts
+   MD IO  → display / headlines / nav / logo (ALL CAPS, chunky grotesque)
+   Simula → editorial serif headlines, scholar names, pull quotes
+   David  → body copy (humanist sans, very light)
+   ============================================================ */
+
+/* ---- MD IO (display) ---- */
+@font-face {
+  font-family: "MD IO";
+  src: url("../assets/fonts/MDIO-Black.woff2") format("woff2");
+  font-weight: 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  /* Ultra is the heaviest cut — used for the biggest stat numbers / poster headlines */
+  font-family: "MD IO Ultra";
+  src: url("../assets/fonts/MDIO-Ultra.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---- Simula (serif) ---- */
+@font-face {
+  font-family: "Simula";
+  src: url("../assets/fonts/Simula-Book.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Simula";
+  src: url("../assets/fonts/Simula-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ---- David (body) ---- */
+@font-face {
+  font-family: "David";
+  src: url("../assets/fonts/David-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "David";
+  src: url("../assets/fonts/David-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,45 @@
+/* ============================================================
+   U-GO University — Spacing, radii, shadows, motion
+   The brand is print-rooted: generous margins, soft edges,
+   restrained shadows. Motion is gentle (fades / ease-out),
+   never bouncy.
+   ============================================================ */
+:root {
+  /* ---- Spacing scale (8px base) ---- */
+  --space-0:   0;
+  --space-1:   0.25rem;  /* 4 */
+  --space-2:   0.5rem;   /* 8 */
+  --space-3:   0.75rem;  /* 12 */
+  --space-4:   1rem;     /* 16 */
+  --space-5:   1.5rem;   /* 24 */
+  --space-6:   2rem;     /* 32 */
+  --space-8:   3rem;     /* 48 */
+  --space-10:  4rem;     /* 64 */
+  --space-12:  6rem;     /* 96 */
+  --space-16:  8rem;     /* 128 */
+
+  --container:     1200px;  /* max content width */
+  --container-narrow: 720px; /* reading measure for prose */
+  --gutter:        clamp(1.25rem, 5vw, 4rem); /* @kind spacing */
+
+  /* ---- Radii — soft, never pill-y on big surfaces ---- */
+  --radius-xs:  4px;
+  --radius-sm:  8px;
+  --radius-md:  14px;
+  --radius-lg:  22px;
+  --radius-xl:  32px;
+  --radius-pill: 999px;   /* buttons, tags, chips */
+
+  /* ---- Shadows — quiet, warm-tinted, low spread ---- */
+  --shadow-sm:  0 1px 2px rgba(28, 59, 64, 0.06);
+  --shadow-md:  0 6px 20px rgba(28, 59, 64, 0.08);
+  --shadow-lg:  0 18px 48px rgba(28, 59, 64, 0.12);
+  --shadow-focus: 0 0 0 3px rgba(79, 158, 176, 0.45);
+
+  /* ---- Motion ---- */
+  --ease-out:   cubic-bezier(0.22, 0.61, 0.36, 1); /* @kind other */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1); /* @kind other */
+  --dur-fast:   140ms; /* @kind other */
+  --dur-base:   240ms; /* @kind other */
+  --dur-slow:   480ms; /* @kind other */
+}

@@ -1,0 +1,27 @@
+<!-- @dsCard group="Colors" viewport="700x250" name="Canvas & ink" subtitle="Beige page, Royal Blue ink — the everyday pairing" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; padding: 26px 32px; background: #fff; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .tile { border-radius: var(--radius-md); padding: 18px; height: 84px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-sm); }
+  .name { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: 14px; letter-spacing: .06em; }
+  .meta { font-family: var(--font-body); font-weight: 400; font-size: 12px; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="tile" style="background:var(--ugo-beige); border:1px solid var(--border-hairline)">
+      <span class="name" style="color:var(--text-primary)">Page · Beige</span><span class="meta" style="color:var(--text-muted)">#F1F1EC · --surface-page</span></div>
+    <div class="tile" style="background:var(--ugo-white); border:1px solid var(--border-hairline)">
+      <span class="name" style="color:var(--text-primary)">Card · White</span><span class="meta" style="color:var(--text-muted)">#FFFFFF · --surface-card</span></div>
+    <div class="tile" style="background:var(--ugo-royal-blue)">
+      <span class="name" style="color:var(--text-on-dark)">Ink · Royal Blue</span><span class="meta" style="color:var(--ugo-light-teal)">#1C3B40 · --text-primary</span></div>
+    <div class="tile" style="background:var(--text-body)">
+      <span class="name" style="color:var(--text-on-dark)">Body ink</span><span class="meta" style="color:var(--ugo-light-teal)">#34403F · --text-body</span></div>
+  </div>
+</body>
+</html>

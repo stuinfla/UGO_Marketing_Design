@@ -1,0 +1,58 @@
+/* ============================================================
+   U-GO University — Base reset & element defaults
+   Sets the beige canvas, David body copy, and sensible
+   defaults so any product starts on-brand.
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-weight: var(--weight-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headlines default to MD IO display, uppercase */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 0.4em;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  text-transform: uppercase;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-primary);
+}
+h1 { font-size: var(--text-3xl); }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-xl); }
+
+p { margin: 0 0 1em; max-width: 68ch; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+strong, b { font-weight: var(--weight-body-solid); }
+
+img { max-width: 100%; display: block; }
+
+::selection { background: var(--ugo-light-teal); color: var(--ugo-royal-blue); }
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--radius-xs);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

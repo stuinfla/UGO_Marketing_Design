@@ -1,0 +1,39 @@
+<!-- @dsCard group="Slides" viewport="1280x720" name="Scholar feature" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  html,body{margin:0;background:#d9d9d2;}
+  .slide{width:1280px;height:720px;background:var(--ugo-white);box-sizing:border-box;padding:0;display:grid;grid-template-columns:1fr 1fr;}
+  .left{background:var(--ugo-royal-blue);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .left .halo{position:absolute;width:560px;height:560px;background:var(--ugo-light-teal);opacity:.18;border-radius:50%;filter:blur(30px);}
+  .portrait{position:relative;width:480px;height:600px;}
+  .portrait .img,.portrait .bg{position:absolute;inset:0;width:100%;height:100%;-webkit-mask:url(../../assets/profiles/p01.png) center/contain no-repeat;mask:url(../../assets/profiles/p01.png) center/contain no-repeat;}
+  .portrait .bg{background:var(--ugo-light-teal);opacity:.4;}
+  .portrait .img{object-fit:cover;}
+  .right{padding:80px 72px;display:flex;flex-direction:column;justify-content:center;}
+  .eyebrow{font-family:var(--font-display);font-weight:900;text-transform:uppercase;letter-spacing:.14em;font-size:15px;color:var(--ugo-dark-teal);}
+  h2{font-family:var(--font-serif);font-weight:400;text-transform:none;letter-spacing:0;font-size:64px;line-height:1;color:var(--ugo-royal-blue);margin:14px 0 4px;}
+  .place{font-family:var(--font-serif);font-style:italic;font-size:26px;color:var(--ugo-royal-blue);}
+  .field{font-family:var(--font-display);font-weight:900;text-transform:uppercase;letter-spacing:.06em;font-size:15px;color:var(--ugo-dark-green);margin-top:8px;}
+  p{font-family:var(--font-body);font-weight:200;font-size:19px;line-height:1.55;color:var(--text-body);max-width:42ch;margin-top:26px;}
+</style>
+</head>
+<body>
+  <div class="slide">
+    <div class="left">
+      <div class="halo"></div>
+      <div class="portrait"><div class="bg"></div><img class="img" src="../../assets/photos/ph_teal.png" alt="Evania Larasati"></div>
+    </div>
+    <div class="right">
+      <span class="eyebrow">Scholar story</span>
+      <h2>Evania Larasati</h2>
+      <span class="place">Indonesia</span>
+      <span class="field">Agrotechnology</span>
+      <p>"With U-GO I'm the first woman in my village studying agrotechnology. I'll bring drought-resistant crops home — and prove that talent here was never the missing piece."</p>
+    </div>
+  </div>
+</body>
+</html>

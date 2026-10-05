@@ -1,0 +1,83 @@
+/* ============================================================
+   U-GO University — Typography tokens
+   Three voices:
+   • MD IO   — display. ALL CAPS, tight tracking. Headlines, nav,
+               logo, big stat numbers, section labels.
+   • Simula  — serif. Sentence case (often italic). Editorial
+               headlines, scholar names, pull quotes.
+   • David   — body. Humanist sans, light weights. Paragraphs, UI.
+   ============================================================ */
+:root {
+  --font-display: "MD IO", "Arial Narrow", system-ui, sans-serif;
+  --font-display-ultra: "MD IO Ultra", "MD IO", system-ui, sans-serif;
+  --font-serif:   "Simula", Georgia, "Times New Roman", serif;
+  --font-body:    "David", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* ---- Type scale (rem, 1rem = 16px) ---- */
+  --text-xs:    0.75rem;   /* 12px — fine print, captions */
+  --text-sm:    0.875rem;  /* 14px — UI labels, meta */
+  --text-base:  1rem;      /* 16px — body */
+  --text-md:    1.125rem;  /* 18px — lead body */
+  --text-lg:    1.375rem;  /* 22px */
+  --text-xl:    1.75rem;   /* 28px */
+  --text-2xl:   2.25rem;   /* 36px */
+  --text-3xl:   3rem;      /* 48px */
+  --text-4xl:   4rem;      /* 64px */
+  --text-5xl:   5.5rem;    /* 88px — hero stat numbers */
+  --text-6xl:   8rem;      /* 128px — poster scale */
+
+  /* ---- Weights ---- */
+  --weight-body:       200;  /* David ExtraLight — the brand default for copy */
+  --weight-body-solid: 400;  /* David Regular — emphasis / small sizes */
+  --weight-serif:      400;
+  --weight-display:    900;  /* MD IO Black */
+
+  /* ---- Line heights ---- */
+  --leading-tight:  0.98;  /* display headlines */
+  --leading-snug:   1.12;  /* serif headlines */
+  --leading-body:   1.55;  /* paragraphs */
+
+  /* ---- Tracking ---- */
+  --tracking-display: 0.005em;  /* MD IO is already tight; barely positive */
+  --tracking-label:   0.12em;   /* spaced small-caps nav / eyebrows */
+  --tracking-body:    0;
+}
+
+/* ============================================================
+   Optional helper classes — products may use these directly
+   or just read the variables above.
+   ============================================================ */
+.ugo-display {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  text-transform: uppercase;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-primary);
+}
+.ugo-eyebrow {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+.ugo-serif {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-serif);
+  line-height: var(--leading-snug);
+  color: var(--text-primary);
+}
+.ugo-serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  line-height: var(--leading-snug);
+  color: var(--text-primary);
+}
+.ugo-body {
+  font-family: var(--font-body);
+  font-weight: var(--weight-body);
+  line-height: var(--leading-body);
+  color: var(--text-body);
+}

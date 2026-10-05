@@ -1,0 +1,70 @@
+/* ============================================================
+   U-GO University — Color tokens
+   Source of truth: U-Go Colour Palette (Saboteur, 2024)
+   Every hue ships in a vibrant ("light palette") cut and a
+   deep ("dark palette") cut. Beige is the canonical canvas.
+   ============================================================ */
+:root {
+  /* ---- Canvas ---- */
+  --ugo-beige:            #f1f1ec;   /* Background Beige — the default page surface */
+  --ugo-white:           #ffffff;
+  --ugo-black:           #14201f;   /* near-black ink, warmed toward the teal */
+
+  /* ---- Vibrant palette (the "light" cuts) ---- */
+  --ugo-royal-blue:      #1c3b40;   /* deep teal-navy — PRIMARY brand ink */
+  --ugo-dark-teal:       #4f9eb0;
+  --ugo-light-teal:      #80deba;
+  --ugo-dark-green:      #6b7d08;   /* olive */
+  --ugo-lime:            #bad626;
+  --ugo-orange:          #ffba29;
+  --ugo-cornflower:      #94b2ff;
+  --ugo-pink:            #ffa3e5;
+
+  /* ---- Deep palette (the "dark" cuts — backgrounds, deep type) ---- */
+  --ugo-royal-blue-deep: #12213b;
+  --ugo-dark-teal-deep:  #1c3b40;
+  --ugo-light-teal-deep: #0a2e1c;
+  --ugo-dark-green-deep: #292b08;
+  --ugo-lime-deep:       #242905;
+  --ugo-orange-deep:     #30210a;
+  --ugo-cornflower-deep: #262b3b;
+  --ugo-pink-deep:       #331c2e;
+
+  /* ============================================================
+     Semantic aliases — reference THESE in product code.
+     ============================================================ */
+  --surface-page:        var(--ugo-beige);
+  --surface-card:        var(--ugo-white);
+  --surface-ink:         var(--ugo-royal-blue);   /* dark sections / footers */
+  --surface-sunken:      #e7e7e0;                  /* beige, one step down */
+
+  --text-primary:        var(--ugo-royal-blue);   /* headings, logo, nav */
+  --text-body:           #34403f;                  /* David body copy */
+  --text-muted:          #6f7a79;
+  --text-on-dark:        var(--ugo-beige);
+  --text-on-color:       var(--ugo-royal-blue);
+
+  --accent:              var(--ugo-royal-blue);    /* primary action */
+  --accent-hover:        #12262a;
+  --accent-contrast:     var(--ugo-beige);
+
+  --border-hairline:     rgba(28, 59, 64, 0.14);
+  --border-strong:       rgba(28, 59, 64, 0.30);
+  --focus-ring:          var(--ugo-dark-teal);
+
+  /* Status (derived from brand hues, never invented) */
+  --status-go:           var(--ugo-dark-green);
+  --status-warn:         var(--ugo-orange);
+  --status-info:         var(--ugo-dark-teal);
+
+  /* The eight "campaign" hues, exposed as a cycle for charts,
+     country legends, scholar tags, etc. */
+  --cat-1: var(--ugo-pink);
+  --cat-2: var(--ugo-light-teal);
+  --cat-3: var(--ugo-dark-teal);
+  --cat-4: var(--ugo-lime);
+  --cat-5: var(--ugo-orange);
+  --cat-6: var(--ugo-cornflower);
+  --cat-7: var(--ugo-dark-green);
+  --cat-8: var(--ugo-royal-blue);
+}
