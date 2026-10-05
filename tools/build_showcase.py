@@ -94,7 +94,7 @@ def build_kit():
     open(os.path.join(OUT, "llms.txt"), "w").write(
         "# U-GO University brand\n\n> Official brand kit. To build anything for U-GO, read and follow:\n\n"
         f"- [Brand kit for Claude]({CDN}/ugo-brand.md)\n- [Stylesheet]({CDN}/kit/ugo.css)\n")
-    for f in ("ugo-university-design.zip", "U-GO SETUP - read me first.txt"):
+    for f in ("ugo-university-design.zip", "U-GO SETUP - read me first.txt", "U-GO-AI-Guide.pdf"):
         shutil.copy2(os.path.join(ROOT, "release", f), os.path.join(OUT, f))
     shutil.copy2(os.path.join(ROOT, "release", "ugo-university-design.zip"), os.path.join(OUT, "brand-pack.zip"))
     open(os.path.join(OUT, "_headers"), "w").write(HEADERS)
@@ -177,6 +177,7 @@ TEMPLATE = """<!doctype html>
   <div class="oneline"><code id="line">Read {{BASE}}/ai and use the U-GO brand to make me a 6-slide PowerPoint about our Nepal programme.</code><button class="copy" data-copy="line">Copy</button></div>
   <p class="small">Works for PowerPoint, Word, PDF, web pages, emails and posts. The AI fetches the logo, silhouettes and colours itself.</p>
   <a class="cta" href="use-with-claude.html">More ways to use it</a>
+  <a class="cta ghost" href="U-GO-AI-Guide.pdf">Download the guide (PDF)</a>
   <a class="cta ghost" href="brand-pack.zip" download>Download the brand pack</a>
   <a class="cta ghost" href="site/index.html">See the website</a>
 </section>

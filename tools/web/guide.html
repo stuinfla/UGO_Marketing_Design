@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>U-GO Brand: How to use it with AI</title>
+<link rel="stylesheet" href="../../project/styles.css">
+<style>
+  @page { size: A4; margin: 0; }
+  html, body { margin: 0; background: var(--ugo-beige); }
+  .page {
+    position: relative; width: 210mm; height: 297mm; overflow: hidden;
+    box-sizing: border-box; padding: 16mm 17mm 14mm;
+    page-break-after: always; break-after: page;
+    display: flex; flex-direction: column;
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  .top { display: flex; align-items: center; justify-content: space-between; }
+  .top img { height: 9mm; width: auto; }
+  .pageno { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; letter-spacing: .14em; font-size: 8pt; color: var(--text-muted); }
+
+  .eyebrow { display: flex; align-items: center; gap: 3mm; font-family: var(--font-display); font-weight: 900; text-transform: uppercase; letter-spacing: .14em; font-size: 8.5pt; color: var(--ugo-dark-teal); }
+  .eyebrow::before { content: ""; width: 8mm; height: .6mm; background: currentColor; }
+  h1 { font-family: var(--font-serif); font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 32pt; line-height: 1.02; color: var(--ugo-royal-blue); margin: 4mm 0 0; }
+  h2 { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: 15pt; letter-spacing: .01em; line-height: 1; color: var(--ugo-royal-blue); margin: 0 0 3mm; }
+  h3 { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: 9pt; letter-spacing: .08em; color: var(--ugo-royal-blue); margin: 0 0 1.5mm; }
+  p, li { font-family: var(--font-body); font-weight: 400; font-size: 10.5pt; line-height: 1.45; color: var(--text-body); margin: 0; max-width: none; }
+  .lead { font-weight: 200; font-size: 13pt; line-height: 1.45; margin-top: 4mm; max-width: 120mm; }
+  a { color: var(--ugo-royal-blue); text-decoration: underline; text-decoration-color: var(--ugo-dark-teal); }
+  b { font-weight: 400; color: var(--ugo-royal-blue); }
+
+  /* the copy-paste boxes */
+  .copy {
+    background: var(--ugo-white); border-radius: 4mm; box-shadow: 0 1.5mm 5mm rgba(28,59,64,.08);
+    border-left: 0; padding: 4mm 5mm; margin: 2.5mm 0 0;
+    font-family: var(--font-body); font-weight: 400; font-size: 10.5pt; line-height: 1.45; color: var(--ugo-royal-blue);
+  }
+  .copy .label { display: block; font-family: var(--font-display); font-weight: 900; text-transform: uppercase; letter-spacing: .12em; font-size: 7pt; color: var(--ugo-dark-teal); margin-bottom: 1.2mm; }
+  .copy.big { font-size: 13pt; padding: 6mm 6mm; border: .5mm solid var(--ugo-light-teal); }
+
+  /* page 1 */
+  .hero { position: relative; margin-top: 12mm; }
+  .hero { padding-right: 62mm; }
+  .hero .sil { position: absolute; right: -10mm; top: 0; height: 58mm; }
+  .hero .sil2 { position: absolute; right: 20mm; top: 14mm; height: 44mm; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin-top: 8mm; }
+  .step { background: var(--ugo-white); border-radius: 4mm; padding: 5mm; box-shadow: 0 1.5mm 5mm rgba(28,59,64,.08); }
+  .num { font-family: var(--font-display); font-weight: 900; font-size: 22pt; line-height: 1; color: var(--ugo-dark-teal); margin-bottom: 2mm; }
+  .band { margin: auto -17mm -14mm; background: var(--ugo-royal-blue); padding: 9mm 17mm 10mm; position: relative; overflow: hidden; }
+  .band p { color: var(--ugo-beige); }
+  .band h2 { color: var(--ugo-beige); }
+  .band .ghost { position: absolute; right: -10mm; top: -14mm; height: 80mm; opacity: .14; }
+  .band .tips { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 8mm; margin-top: 3mm; }
+  .band b { color: var(--ugo-light-teal); }
+  .band a { color: var(--ugo-beige); text-decoration-color: var(--ugo-light-teal); }
+
+  /* page 2 */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5mm 5mm; margin-top: 4mm; }
+  .grid2 .copy { margin: 0; }
+  .note { font-size: 9.5pt; color: var(--text-muted); margin-top: 4mm; }
+
+  /* page 3 */
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm 8mm; margin-top: 5mm; }
+  .card { background: var(--ugo-white); border-radius: 4mm; padding: 5mm; box-shadow: 0 1.5mm 5mm rgba(28,59,64,.08); }
+  .card p + p { margin-top: 2mm; }
+  ol { margin: 0; padding-left: 4.5mm; }
+  ol li + li { margin-top: 1mm; }
+  .swatches { display: flex; gap: 1.6mm; margin-top: 2.5mm; }
+  .sw { width: 10.6mm; }
+  .sw i { display: block; height: 9mm; border-radius: 2mm; border: .3mm solid rgba(28,59,64,.12); }
+  .sw span { display: block; font-family: var(--font-body); font-weight: 400; font-size: 6.5pt; color: var(--text-muted); margin-top: 1mm; line-height: 1.2; }
+  .fonts p { margin-top: 1.5mm; }
+  .f-display { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: 13pt; color: var(--ugo-royal-blue); }
+  .f-serif { font-family: var(--font-serif); font-size: 14pt; color: var(--ugo-royal-blue); }
+  .f-serif em { font-style: italic; }
+  .f-body { font-family: var(--font-body); font-weight: 200; font-size: 11pt; }
+  .links { margin-top: auto; padding-top: 6mm; border-top: .3mm solid var(--border-hairline); display: flex; justify-content: space-between; align-items: flex-end; gap: 6mm; }
+  .links p { font-size: 9.5pt; }
+  .links img { height: 10mm; width: auto; }
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1: the one line ============ -->
+<section class="page">
+  <div class="top"><img src="../../project/assets/logos/UGO_Logo_horizontal_trim.png" alt="U-GO"><span class="pageno">Brand kit · AI guide</span></div>
+
+  <div class="hero">
+    <img class="sil2" src="../../project/assets/profiles/p02.png" alt="">
+    <img class="sil" src="../../project/assets/profiles/p01.png" alt="">
+    <span class="eyebrow">For everyone at U-GO</span>
+    <h1>Make anything<br><span style="white-space:nowrap">on-brand,</span><br><em>in one line.</em></h1>
+    <p class="lead">PowerPoints, Word documents, PDFs, web pages, emails and social posts, in the official U-GO style. Works in ChatGPT, Claude, Gemini or Copilot. Nothing to install.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step"><div class="num">1</div><h3>Open a new chat</h3><p>In ChatGPT or Claude. Always start a new chat for a new piece of work.</p></div>
+    <div class="step"><div class="num">2</div><h3>Paste the line</h3><p>Copy the line below and change the end to what you need.</p></div>
+    <div class="step"><div class="num">3</div><h3>Download your file</h3><p>The AI fetches the logo, colours, fonts and silhouettes itself.</p></div>
+  </div>
+
+  <div class="copy big" style="margin-top:8mm">
+    <span class="label">Copy this line</span>Read https://ugo-brand.netlify.app/ai and use the U-GO brand to make me a 6-slide PowerPoint about our Nepal programme.
+  </div>
+  <p class="note">Change “a 6-slide PowerPoint about our Nepal programme” to anything: see page 2 for ready-made lines.</p>
+
+  <div class="band">
+    <img class="ghost" src="../../project/assets/profiles/inv06.png" alt="">
+    <h2>Good to know</h2>
+    <div class="tips">
+      <p><b>Can't open links?</b> Turn on web search in that chat and paste the line again.</p>
+      <p><b>Using Claude?</b> Turn on Settings → Capabilities → <i>Code execution and file creation</i> so it can make files.</p>
+      <p><b>Want changes?</b> Just ask in the same chat: “shorter”, “add a slide on costs”, “make the title slide Royal Blue”.</p>
+      <p><b>Check the facts.</b> If the AI adds names, programmes or numbers it found online, confirm them with the U-GO team before sharing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 2: ready-made lines ============ -->
+<section class="page">
+  <div class="top"><img src="../../project/assets/logos/UGO_Logo_horizontal_trim.png" alt="U-GO"><span class="pageno">2 · Ready-made lines</span></div>
+
+  <div style="margin-top:10mm">
+    <span class="eyebrow">Copy, paste, adjust</span>
+    <h1 style="font-size:28pt">Ready-made lines<br><em>for everyday work.</em></h1>
+    <p class="lead" style="font-size:11.5pt">Copy a whole box into a new chat. Replace anything in [square brackets] with your details.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="copy"><span class="label">PowerPoint</span>Read https://ugo-brand.netlify.app/ai and use the U-GO brand to make me a 6-slide PowerPoint for donors about [our Nepal programme].</div>
+    <div class="copy"><span class="label">Word document</span>Read https://ugo-brand.netlify.app/ai and use the U-GO brand to make me a two-page Word document about [our 2027 scholarship appeal].</div>
+    <div class="copy"><span class="label">PDF one-pager</span>Read https://ugo-brand.netlify.app/ai and use the U-GO brand to make me a one-page PDF for donors about [how a scholarship changes a family].</div>
+    <div class="copy"><span class="label">Web page</span>Read https://ugo-brand.netlify.app/ai and use the U-GO brand to make me a one-page web page for [our 2027 appeal], as a single HTML file I can open in my browser.</div>
+    <div class="copy"><span class="label">Social posts</span>Read https://ugo-brand.netlify.app/ai and use the U-GO brand to write three LinkedIn posts announcing [50 new scholars], with a square image for each.</div>
+    <div class="copy"><span class="label">Email</span>Read https://ugo-brand.netlify.app/ai and use the U-GO brand to write a thank-you email to [guests at our London dinner].</div>
+    <div class="copy"><span class="label">Poster or flyer</span>Read https://ugo-brand.netlify.app/ai and use the U-GO brand to make me an A4 poster for [our fundraising dinner on 12 March at The Old Hall].</div>
+    <div class="copy"><span class="label">Instagram image</span>Read https://ugo-brand.netlify.app/ai and use the U-GO brand to make me a 1080×1080 Instagram image with our tagline.</div>
+    <div class="copy"><span class="label">Restyle your own file</span>Read https://ugo-brand.netlify.app/ai and use the U-GO brand to redesign the attached document. Keep my words; change only the design.</div>
+    <div class="copy"><span class="label">Write the words for you</span>Read https://ugo-brand.netlify.app/ai and, in the U-GO voice, write a 150-word introduction to U-GO for [a corporate partner].</div>
+  </div>
+
+  <p class="note">Tip: attach your own notes, report or photos to the chat and say “use the attached”. Real photos of scholars always look better than placeholders. Only use them with consent.</p>
+</section>
+
+<!-- ============ PAGE 3: help + set up once ============ -->
+<section class="page">
+  <div class="top"><img src="../../project/assets/logos/UGO_Logo_horizontal_trim.png" alt="U-GO"><span class="pageno">3 · Help and extras</span></div>
+
+  <div style="margin-top:10mm">
+    <span class="eyebrow">If something goes wrong</span>
+    <h2 style="font-size:20pt;margin-top:4mm">Quick fixes</h2>
+  </div>
+
+  <div class="cols" style="margin-top:2mm">
+    <div class="card">
+      <h3>“I can't open that link”</h3>
+      <p>Turn on web search or browsing for the chat (the “+” or tools button) and paste the line again.</p>
+    </div>
+    <div class="card">
+      <h3>It describes the file but doesn't make one</h3>
+      <p>Reply: “Please create the actual file for me to download.” In Claude, check that <i>Code execution and file creation</i> is on.</p>
+    </div>
+    <div class="card">
+      <h3>It asks you for brand files</h3>
+      <p>Download the brand pack from <a href="https://ugo-brand.netlify.app/brand-pack.zip">ugo-brand.netlify.app/brand-pack.zip</a> and attach it to the chat. Don't unzip it.</p>
+    </div>
+    <div class="card">
+      <h3>The fonts look different</h3>
+      <p>PowerPoint and Word show the U-GO fonts only if they're installed on your computer. Otherwise they use close standard fonts. Web pages and PDFs use the real fonts.</p>
+    </div>
+  </div>
+
+  <div style="margin-top:8mm">
+    <span class="eyebrow">Optional · set up once</span>
+    <h2 style="font-size:20pt;margin-top:4mm">Never paste the link again</h2>
+  </div>
+  <div class="cols" style="margin-top:2mm">
+    <div class="card">
+      <h3>Claude</h3>
+      <ol>
+        <li>Download the brand pack: <a href="https://ugo-brand.netlify.app/brand-pack.zip">ugo-brand.netlify.app/brand-pack.zip</a></li>
+        <li>Settings → Capabilities → turn on <i>Code execution and file creation</i>.</li>
+        <li>Customize → Skills → Upload skill → choose the zip.</li>
+        <li>From then on, just type: <b>U-GO: make a 6-slide PowerPoint about [topic].</b></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>ChatGPT</h3>
+      <ol>
+        <li>Create a Project called “U-GO”.</li>
+        <li>In the project's instructions, paste:</li>
+      </ol>
+      <div class="copy" style="box-shadow:none;border:.3mm solid var(--border-hairline);margin-top:2mm">Follow the U-GO brand at https://ugo-brand.netlify.app/ai for everything in this project.</div>
+      <p style="margin-top:2mm">Chats inside that project are then on-brand automatically.</p>
+    </div>
+  </div>
+
+  <div class="cols" style="margin-top:7mm;grid-template-columns:1.25fr 1fr">
+    <div>
+      <h3>The brand at a glance</h3>
+      <div class="swatches">
+        <div class="sw"><i style="background:#F1F1EC"></i><span>Beige<br>#F1F1EC</span></div>
+        <div class="sw"><i style="background:#1C3B40"></i><span>Royal Blue<br>#1C3B40</span></div>
+        <div class="sw"><i style="background:#4F9EB0"></i><span>Dark Teal<br>#4F9EB0</span></div>
+        <div class="sw"><i style="background:#80DEBA"></i><span>Light Teal<br>#80DEBA</span></div>
+        <div class="sw"><i style="background:#BAD626"></i><span>Lime<br>#BAD626</span></div>
+        <div class="sw"><i style="background:#FFBA29"></i><span>Orange<br>#FFBA29</span></div>
+        <div class="sw"><i style="background:#94B2FF"></i><span>Cornflower<br>#94B2FF</span></div>
+        <div class="sw"><i style="background:#FFA3E5"></i><span>Pink<br>#FFA3E5</span></div>
+      </div>
+    </div>
+    <div class="fonts">
+      <h3>Three fonts</h3>
+      <p class="f-display">MD IO for headlines</p>
+      <p class="f-serif">Simula, <em>often in italic</em></p>
+      <p class="f-body">David for everything you read</p>
+    </div>
+  </div>
+
+  <div class="links">
+    <div>
+      <p><b>Brand site:</b> <a href="https://ugo-brand.netlify.app">ugo-brand.netlify.app</a> &nbsp;·&nbsp; <b>Instructions for the AI:</b> <a href="https://ugo-brand.netlify.app/ai">ugo-brand.netlify.app/ai</a></p>
+      <p><b>Everything (for developers):</b> <a href="https://github.com/stuinfla/UGO_Marketing_Design">github.com/stuinfla/UGO_Marketing_Design</a></p>
+    </div>
+    <img src="../../project/assets/logos/UGO_Logo_horizontal_trim.png" alt="U-GO">
+  </div>
+</section>
+
+</body>
+</html>
