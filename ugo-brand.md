@@ -2,11 +2,11 @@
 
 For Claude, ChatGPT, Gemini, Copilot or any other assistant. You have been pointed at the official U-GO University brand. Follow it exactly for whatever the user asks you to build: a web page, landing page, one-pager, PowerPoint, Word document, PDF, poster, social post, email or app. Everything you need is on this page or linked from it. All links are public and need no login.
 
-**Before you start:** if you're about to create a file (PowerPoint, Word, PDF, image) in a code sandbox, first check that you can download one of the image links below. Many sandboxes can't reach the internet. If yours can't, ask the user once, in plain words:
+**Everything in one download:** https://ugo-brand.netlify.app/brand-pack.zip contains every logo, silhouette, font and colour file, the example slides, and `scripts/ugo_pptx.py`, a ready-made on-brand PowerPoint builder (python-pptx; its docstring shows how to call it). When you create a file (PowerPoint, Word, PDF, image), download and unzip this pack yourself (the files are inside the `ugo-university-design/` folder) and use it. Never ask the user to fetch anything you can download yourself. You can also download single images from the links in section 2. Only if your sandbox truly can't download them, ask the user once, in plain words:
 
 > "To put the real U-GO logo and silhouettes in your file, please download the brand pack from https://ugo-brand.netlify.app/brand-pack.zip and attach it here (don't unzip it)."
 
-The pack contains every logo, silhouette, font and colour file, plus `scripts/ugo_pptx.py`, a ready-made on-brand PowerPoint builder (python-pptx; read the docstring at the top of the file). If the user can't attach it, build the file anyway: use the colours and fonts below, put the U-GO name in heavy uppercase type where the logo goes, and say what's missing. Never draw your own logo or faces.
+If the user can't attach it, build the file anyway: use the colours and fonts below, put the U-GO name in heavy uppercase type where the logo goes, and say what's missing. Never draw your own logo or faces.
 
 U-GO University is a non-profit that partners with ambitious donors at scale to fund higher-education scholarships for talented young women in low-income countries: Pakistan, India, Bangladesh, Cambodia, Vietnam, the Philippines, Indonesia, Nepal and Tanzania. Tagline: **"Talent is universal, opportunity is not."** Website: ugouniversity.org · Contact: contact@ugouniversity.org.
 
@@ -20,6 +20,7 @@ U-GO University is a non-profit that partners with ambitious donors at scale to 
 - **Logo:** web pages: header and footer. Decks: title and closing slide (inner slides don't need it).
 - **Shape:** white cards with 22px corners and a soft teal-tinted shadow (`0 6px 20px rgba(28,59,64,.08)`). Pill-shaped buttons and tags. Lots of whitespace.
 - **Voice:** warm, dignified, optimistic. Lead with talent, never pity. Short sentences. No emoji, no exclamation marks, no hype.
+- **Facts from the web:** you may use details from ugouniversity.org or other reliable sources (programme names, scholar stories, people). Put each source in the speaker notes or a footnote, and tell the user in one line to check these facts with U-GO before sharing.
 - **Statistics:** use only these approved figures. Never invent numbers; write `[STAT]` where one is needed.
   - 98% of U-GO scholars advance to the next grade
   - 90% of a woman's income is invested back into her family
@@ -80,7 +81,11 @@ Start from this skeleton and keep the structure:
 Buttons: `font-family: var(--font-display); text-transform: uppercase; letter-spacing: .09em; border-radius: 999px; padding: 13px 26px;` Royal Blue fill with beige text (primary), or a 1.5px Royal Blue outline (secondary).
 
 ### PowerPoint (.pptx)
-16:9. Mix these layouts. Use Beige for most slides and Royal Blue for section dividers and the closing slide:
+16:9 (13.33 × 7.5 in). Keep slides readable from the back of a room:
+- **Sizes:** slide titles 32–44pt; serif headlines 36–54pt; body text at least 18pt; captions and labels at least 14pt.
+- **Amount:** at most about 40 words and 4 bullet points per slide. Put extra detail in the speaker notes.
+- **Stat inside a silhouette:** the silhouette picture is at least 4.5 in tall. Centre the number horizontally on the picture, with its middle at about 45% of the picture's height (over the head, not the forehead). Put the caption directly below it, inside the picture's outline: width at most 55% of the picture, about 14–16pt, the same colour as the number. Never let the caption hang outside the shape.
+ Mix these layouts. Use Beige for most slides and Royal Blue for section dividers and the closing slide:
 1. **Title:** beige; logo top-left; small dark-teal uppercase label; large Simula title (second line italic); two overlapping silhouettes bottom-right; "ugouniversity.org" bottom-left.
 2. **Section divider:** Royal Blue; light-teal number; huge beige MD IO uppercase title; short lime rule; faint white silhouette (inv02 at about 16% opacity, so mostly see-through) on the right.
 3. **Content:** beige; eyebrow; MD IO uppercase heading; 3–5 short David bullets; one silhouette or photo on the right.
@@ -88,7 +93,7 @@ Buttons: `font-family: var(--font-display); text-transform: uppercase; letter-sp
 5. **Quote:** beige; large Simula italic quote; uppercase dark-teal attribution; silhouette on the right.
 6. **Closing:** Royal Blue; centred beige Simula line "Make opportunity as universal as talent."; contact line in light teal; light logo.
 
-Download the logo and silhouette PNGs from the URLs above and place them as pictures. PowerPoint can't embed web fonts, so use MD IO / Simula / David if installed, otherwise Arial Black / Georgia / Calibri Light. If you can't download them, ask for the brand pack as described at the top. If it's attached, unzip it and use `scripts/ugo_pptx.py`, which builds all six layouts above with the real images.
+Download the logo and silhouette PNGs from the URLs above and place them as pictures. PowerPoint can't embed web fonts, so use MD IO / Simula / David if installed, otherwise Arial Black / Georgia / Calibri Light. Easiest: unzip the brand pack (top of this page) and use `scripts/ugo_pptx.py`, which builds all six layouts above with the real images. Adjust its output to the sizes and word limits above.
 
 ### Word document or PDF
 Headings in MD IO (fallback Arial Black), uppercase, Royal Blue. Body in David (fallback Calibri Light), 11pt, `#34403F`. Pull quotes in Simula italic (fallback Georgia). Logo in the header; a silhouette on the cover. For a PDF, build the HTML version above and print it to PDF.

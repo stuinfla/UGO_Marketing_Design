@@ -31,6 +31,7 @@ Always deliver a finished FILE (.pptx, .html, .pdf, .docx, .png), not a descript
 - **Shape:** rounded cards (22px), pill buttons/tags, soft teal-tinted shadows, generous whitespace.
 
 ## Workflow: PowerPoint
+Readable slides: titles 32–44pt, body at least 18pt, captions at least 14pt, at most about 40 words and 4 bullets per slide (extra detail goes in speaker notes). Facts taken from ugouniversity.org or the web go in the speaker notes with their source, and the user should check them with U-GO before sharing.
 1. `pip install python-pptx` if missing. The script reads assets relative to itself, so it can be imported straight from the skill folder.
 2. Write a short Python script that imports `scripts/ugo_pptx.py` and calls its slide functions (see the docstring at the top of that file). Mix layouts; max 2 background colours.
 3. Save to the outputs folder and give the user the .pptx.

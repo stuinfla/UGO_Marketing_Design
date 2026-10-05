@@ -48,25 +48,20 @@
 
   <section class="step">
     <span class="tag alt">2 · PowerPoint, Word, PDF</span>
-    <h2>Same line, plus the brand pack</h2>
-    <p>AI chats build files in a sealed sandbox that usually can't download pictures. Attach the brand pack so the real logo and silhouettes go into your file.</p>
-    <p><a class="btn" href="brand-pack.zip" download>Download the brand pack</a></p>
-    <ol>
-      <li>Click <b>Download the brand pack</b>. Don't unzip it.</li>
-      <li>Start a new chat. Attach <b>brand-pack.zip</b> with the paperclip or “+” button.</li>
-      <li>Paste the line:</li>
-    </ol>
-    <div class="prompt" id="p2">Read {{BASE}}/ai and use the U-GO brand, with the attached brand pack, to make me a 6-slide PowerPoint about our Nepal programme.<button class="btn copy" data-copy="p2">Copy</button></div>
-    <p class="note">Swap “6-slide PowerPoint” for “two-page Word document” or “one-page PDF”. Claude needs <b>Settings → Capabilities → Code execution and file creation</b> turned on. In ChatGPT, file creation is on by default. PowerPoint shows the brand fonts only if they're installed on your computer; otherwise it uses close standard fonts.</p>
+    <h2>Same line, just ask for the file</h2>
+    <div class="prompt" id="p2">Read {{BASE}}/ai and use the U-GO brand to make me a 6-slide PowerPoint about our Nepal programme.<button class="btn copy" data-copy="p2">Copy</button></div>
+    <p class="note">Swap “6-slide PowerPoint” for “two-page Word document” or “one-page PDF”. The AI fetches the logo, silhouettes and colours itself. In Claude, turn on <b>Settings → Capabilities → Code execution and file creation</b> first. PowerPoint shows the brand fonts only if they're installed on your computer; otherwise it uses close standard fonts. Check any facts the AI finds online with U-GO before you share the file.</p>
+    <p class="note">Only if the AI asks you for brand files: <a href="brand-pack.zip" download>download the brand pack</a> and attach it to the chat without unzipping it.</p>
   </section>
 
   <section class="step">
     <span class="tag">3 · Claude users: set it up once</span>
     <h2>Never paste a link again</h2>
     <p>Add the brand pack as a Claude skill, and every chat knows the brand.</p>
+    <p><a class="btn" href="brand-pack.zip" download>Download the brand pack</a></p>
     <ol>
       <li>In Claude: <b>Settings → Capabilities</b>, and turn on <b>Code execution and file creation</b>.</li>
-      <li><b>Customize → Skills → + Upload skill</b>, then choose <b>brand-pack.zip</b>.</li>
+      <li><b>Customize → Skills → + Upload skill</b>, then choose the <b>brand-pack.zip</b> you just downloaded (don't unzip it).</li>
       <li>From then on, just type:</li>
     </ol>
     <div class="prompt" id="p3">U-GO: make a 6-slide PowerPoint for donors about our Nepal programme.<button class="btn copy" data-copy="p3">Copy</button></div>
