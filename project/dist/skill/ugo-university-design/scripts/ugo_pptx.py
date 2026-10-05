@@ -20,6 +20,7 @@ from pptx.util import Inches, Pt
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
+from pptx.oxml.ns import qn
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.join(HERE, "..", "assets")
@@ -30,8 +31,10 @@ INK, BODY, MUTED = RGBColor(0x1C, 0x3B, 0x40), RGBColor(0x34, 0x40, 0x3F), RGBCo
 DARK_TEAL, LIGHT_TEAL, LIME = RGBColor(0x4F, 0x9E, 0xB0), RGBColor(0x80, 0xDE, 0xBA), RGBColor(0xBA, 0xD6, 0x26)
 ORANGE, CORNFLOWER, PINK = RGBColor(0xFF, 0xBA, 0x29), RGBColor(0x94, 0xB2, 0xFF), RGBColor(0xFF, 0xA3, 0xE5)
 
-# Brand font names; PowerPoint falls back if not installed. Set USE_FALLBACK_FONTS=True to force safe fonts.
-USE_FALLBACK_FONTS = True
+# Safe fonts by default: PowerPoint can't embed the brand .woff2 files, and a missing font is
+# swapped for an unpredictable default. Set UGO_BRAND_FONTS=1 (or USE_FALLBACK_FONTS=False)
+# only when the recipient has MD IO, Simula and David installed.
+USE_FALLBACK_FONTS = os.environ.get("UGO_BRAND_FONTS") != "1"
 DISPLAY = "Arial Black" if USE_FALLBACK_FONTS else "MD IO"
 SERIF = "Georgia" if USE_FALLBACK_FONTS else "Simula"
 SANS = "Calibri Light" if USE_FALLBACK_FONTS else "David"
@@ -79,9 +82,18 @@ class Deck:
                 rPr.set("spc", str(int(spacing)))
         return tb
 
-    def _logo(self, s, light=False, x=None, y=None, h=Inches(0.55)):
-        f = "UGO_Logo_horizontal_light.png" if light else "UGO_Logo_horizontal.png"
-        s.shapes.add_picture(A("logos", f), x if x is not None else M, y if y is not None else Inches(0.6), height=h)
+    def _logo(self, s, light=False, x=None, y=None, h=Inches(0.5)):
+        # _trim files have the transparent margin removed, so `h` is the visible logo height.
+        f = "UGO_Logo_horizontal_light_trim.png" if light else "UGO_Logo_horizontal_trim.png"
+        return s.shapes.add_picture(A("logos", f), x if x is not None else M, y if y is not None else Inches(0.6), height=h)
+
+    @staticmethod
+    def _faint(pic, opacity=0.16):
+        """Fade a picture (the white silhouette on Royal Blue) via <a:alphaModFix>."""
+        blip = pic._element.find(".//" + qn("a:blip"))
+        fix = blip.makeelement(qn("a:alphaModFix"), {"amt": str(int(opacity * 100000))})
+        blip.append(fix)
+        return pic
 
     def _eyebrow(self, s, text, x, y, color=DARK_TEAL):
         bar = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, x, y + Inches(0.1), Inches(0.4), Inches(0.04))
@@ -106,7 +118,7 @@ class Deck:
 
     def section(self, number, title, notes=None):
         s = self._slide(INK, notes)
-        s.shapes.add_picture(A("profiles", "inv02.png"), Inches(8.2), Inches(-0.6), height=Inches(8.7))
+        self._faint(s.shapes.add_picture(A("profiles", "inv02.png"), Inches(8.0), Inches(-0.4), height=Inches(8.2)))
         self._text(s, M, Inches(2.3), Inches(4), Inches(0.5), number, DISPLAY, 24, LIGHT_TEAL)
         self._text(s, M, Inches(2.9), Inches(9), Inches(2.6), title, DISPLAY, 66, BEIGE, upper=True, line=0.95)
         bar = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, M, Inches(5.7), Inches(0.7), Inches(0.06))
@@ -162,11 +174,12 @@ class Deck:
 
     def closing(self, line="Make opportunity as universal as talent.", contact="contact@ugouniversity.org  ·  ugouniversity.org", notes=None):
         s = self._slide(INK, notes)
-        s.shapes.add_picture(A("profiles", "inv06.png"), Inches(-1.2), Inches(0.4), height=Inches(7.6))
+        self._faint(s.shapes.add_picture(A("profiles", "inv06.png"), Inches(-1.4), Inches(0.2), height=Inches(7.8)), 0.12)
         self._text(s, Inches(2.2), Inches(2.0), Inches(9), Inches(2.4), line, SERIF, 48, BEIGE, align=PP_ALIGN.CENTER,
                    anchor=MSO_ANCHOR.MIDDLE, line=1.05)
         self._text(s, Inches(2.2), Inches(4.7), Inches(9), Inches(0.4), contact, SANS, 16, LIGHT_TEAL, align=PP_ALIGN.CENTER)
-        self._logo(s, light=True, x=int((W - Inches(2.2)) / 2), y=Inches(5.6), h=Inches(0.6))
+        logo = self._logo(s, light=True, y=Inches(5.6), h=Inches(0.55))
+        logo.left = int((W - logo.width) / 2)
         return s
 
     def save(self, path):

@@ -12,9 +12,10 @@ Always deliver a finished FILE (.pptx, .html, .pdf, .docx, .png), not a descript
 ## Files in this skill
 - `brand/styles.css` (+ colors/typography/spacing/fonts/base.css) — tokens and real @font-face rules.
 - `assets/fonts/*.woff2` — MD IO Black/Ultra, Simula Book/Italic, David ExtraLight/Regular.
-- `assets/logos/` — `UGO_Logo_horizontal.png` (on light), `UGO_Logo_horizontal_light.png` (on Royal Blue), square mark, favicon.
-- `assets/profiles/` — the signature watercolour profile silhouettes: `p01–p05.png` (colour), `inv02/inv06.png` (white, for dark backgrounds).
+- `assets/logos/` — `UGO_Logo_horizontal.png` (on light), `UGO_Logo_horizontal_light.png` (on Royal Blue), square mark, favicon. The `*_trim.png` versions have the transparent margin removed — use them when you size the logo by height (slides, documents).
+- `assets/profiles/` — the signature watercolour profile silhouettes: `p01–p05.png` (colour), `inv02/inv06.png` (solid beige-white silhouettes for Royal Blue backgrounds — always use them faint, 12–18% opacity).
 - `assets/textures/wc_cornflower.png`, `assets/stickers/tagline_silhouette.png`.
+- `assets/photos/ph_*.jpg` — abstract placeholder portraits. Replace with real scholar photos when the user provides them; never present placeholders as real people.
 - `examples/*.html` — 1280×720 reference slides (Title, Section, Stat, Quote, Scholar). Copy their structure.
 - `scripts/ugo_pptx.py` — builds on-brand .pptx decks (python-pptx).
 - `scripts/inline_html.py` — turns an HTML file that links brand/styles.css + assets into ONE self-contained .html with fonts and images embedded.
@@ -28,15 +29,15 @@ Always deliver a finished FILE (.pptx, .html, .pdf, .docx, .png), not a descript
 - **Shape:** rounded cards (22px), pill buttons/tags, soft teal-tinted shadows, generous whitespace.
 
 ## Workflow: PowerPoint
-1. Copy the skill folder to a working dir. `pip install python-pptx` if missing.
+1. `pip install python-pptx` if missing. The script reads assets relative to itself, so it can be imported straight from the skill folder.
 2. Write a short Python script that imports `scripts/ugo_pptx.py` and calls its slide functions (see the docstring at the top of that file). Mix layouts; max 2 background colours.
 3. Save to the outputs folder and give the user the .pptx.
-Fonts in PowerPoint: the script sets MD IO / Simula / David with fallbacks Arial Black / Georgia / Calibri Light. Tell the user once: if the brand fonts aren't installed on their computer, PowerPoint shows the fallbacks; the .woff2 files can't be embedded in PowerPoint.
+Fonts in PowerPoint: the script uses Arial Black / Georgia / Calibri Light by default, because PowerPoint can't embed the .woff2 brand fonts. If the user says MD IO, Simula and David are installed on their computer, set `UGO_BRAND_FONTS=1` in the environment before importing (or `ugo_pptx.USE_FALLBACK_FONTS = False` before creating the Deck) to use the real font names.
 
 ## Workflow: website / landing page / one-pager (HTML)
-1. Write the page in the skill folder's `examples/` directory (so `../brand/styles.css` and `../assets/...` paths resolve). Use the CSS variables (`var(--ugo-royal-blue)`, `var(--font-display)`, etc.).
+1. The skill folder is read-only, so first copy it somewhere writable (e.g. `cp -r <skill folder> /tmp/ugo`). Write the page in `/tmp/ugo/examples/` so `../brand/styles.css` and `../assets/...` paths resolve. Use the CSS variables (`var(--ugo-royal-blue)`, `var(--font-display)`, etc.).
 2. Structure for a site: sticky beige header (logo, MD IO nav, Royal Blue pill "DONATE") → hero (eyebrow, Simula headline, body, two pill buttons, overlapping silhouettes) → white stats band (numbers inside silhouettes) → "WHERE WE WORK" country tags with coloured dots → "MEET THE SCHOLARS" (photo cropped into silhouette with CSS mask, Simula name, italic country, field) → Royal Blue CTA band → beige footer.
-3. Run `python scripts/inline_html.py examples/yourpage.html /mnt/user-data/outputs/yourpage.html` to embed fonts and images, then deliver that single file.
+3. Run `python /tmp/ugo/scripts/inline_html.py /tmp/ugo/examples/yourpage.html /mnt/user-data/outputs/yourpage.html` to embed fonts and images, then deliver that single file.
 
 ## Workflow: PDF / poster / social image
 Build it as HTML (above) at the exact pixel size, inline it, then render to PDF/PNG (e.g. with playwright/chromium if available, otherwise deliver the HTML and say so). Social: one message, huge type, Beige or Royal Blue background, silhouette, logo.

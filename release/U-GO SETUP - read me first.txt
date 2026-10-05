@@ -1,0 +1,21 @@
+U-GO UNIVERSITY BRAND KIT FOR CLAUDE — SETUP (one time, about 2 minutes)
+
+You need: a Claude account (claude.ai website or the Claude desktop app). Do NOT unzip this file.
+
+1. Open Claude. Click your name/initials (bottom left) > Settings > Capabilities.
+   Turn ON "Code execution and file creation".
+2. In the left sidebar go to Customize > Skills.
+3. Click "+" / "Upload skill" and choose ugo-university-design.zip.
+4. Make sure "ugo-university-design" is switched ON.
+
+That's it. From now on, in ANY chat, just start your request with "U-GO:"
+
+   U-GO: make a 6-slide PowerPoint for donors about our Nepal programme.
+   U-GO: build a one-page landing page for our 2027 scholarship appeal.
+   U-GO: turn this report (attached) into a branded PDF one-pager.
+   U-GO: write 3 LinkedIn posts announcing 50 new scholars, plus a square image for each.
+
+Claude will use the real U-GO fonts, colours, logo and watercolour silhouettes and give you a finished file to download.
+
+Tip: attach real photos of scholars and say "use these photos" for the best results.
+If the brand fonts aren't installed on your computer, PowerPoint will show similar standard fonts. Websites and PDFs use the real fonts.
