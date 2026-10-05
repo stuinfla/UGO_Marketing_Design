@@ -40,6 +40,7 @@ SERIF = "Georgia" if USE_FALLBACK_FONTS else "Simula"
 SANS = "Calibri Light" if USE_FALLBACK_FONTS else "David"
 
 PROFILES = ["p01.png", "p03.png", "p05.png", "p04.png", "p02.png"]
+DARK_PROFILES = {"p04.png"}
 W, H = Inches(13.333), Inches(7.5)
 M = Inches(0.8)
 
@@ -149,10 +150,12 @@ class Deck:
         for i, (val, cap) in enumerate(items):
             x = M + i * (cw + gap)
             ph = Inches(4.9)
-            pic = s.shapes.add_picture(A("profiles", PROFILES[i % len(PROFILES)]), x, Inches(2.25), height=ph)
+            profile = PROFILES[i % len(PROFILES)]
+            pic = s.shapes.add_picture(A("profiles", profile), x, Inches(2.25), height=ph)
             pic.left = int(x + (cw - pic.width) / 2)
-            self._text(s, x, Inches(3.9), cw, Inches(1.2), val, DISPLAY, 72, INK, align=PP_ALIGN.CENTER)
-            self._text(s, x + Inches(0.6), Inches(5.15), cw - Inches(1.2), Inches(1), cap, SANS, 15, INK, align=PP_ALIGN.CENTER)
+            ink = WHITE if profile in DARK_PROFILES else INK  # Royal Blue is unreadable on dark teal
+            self._text(s, x, Inches(3.9), cw, Inches(1.2), val, DISPLAY, 72, ink, align=PP_ALIGN.CENTER)
+            self._text(s, x + Inches(0.6), Inches(5.15), cw - Inches(1.2), Inches(1), cap, SANS, 15, ink, align=PP_ALIGN.CENTER)
         return s
 
     def quote(self, text, attribution="", notes=None):

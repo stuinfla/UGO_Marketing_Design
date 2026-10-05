@@ -4,18 +4,12 @@
 
 U-GO University is a non-profit that partners with ambitious donors **at scale to fund higher-education scholarships for talented young women in low-income countries** — currently Pakistan, India, Bangladesh, Cambodia, Vietnam, the Philippines, Indonesia, Nepal and Tanzania. The single idea behind everything: **"Talent is universal, opportunity is not."** Web: ugouniversity.org.
 
-This repo holds the foundations (colour, type, spacing), real brand assets (logos, watercolour profile silhouettes, fonts), reusable React components, a website UI kit, and sample presentation slides.
+This skill holds the foundations (colour, type, spacing), real brand assets (logos, watercolour profile silhouettes, fonts), example slides and two helper scripts. The full design system (React components, website) lives at https://github.com/stuinfla/UGO_Marketing_Design.
 
 ---
 
 ## Sources
-Everything here is derived from the official U-GO brand package (Saboteur, 2024) and the live site. Stored under `_ref/` where small enough to keep:
-- **U-GO Brand Guidelines** — `FINAL U-GO_Brand_Guidelines_250113.pdf` (in the original package; too large to copy here).
-- **Colour palette** — `_ref/color_palette.pdf` (exact CMYK/RGB/HEX, both light & dark cuts).
-- **Event collateral** — `_ref/event_collateral.pdf` (FT Event 2024 — tone of voice, poster stats).
-- **Live site screenshot** — the home page (hero, stats, "Where we work" map, "Meet the scholars").
-- **Fonts** — MD IO, Simula, David webfonts (shipped in `assets/fonts/`).
-- **Imagery** — watercolour profile silhouettes, logos, stickers (shipped in `assets/`).
+Derived from the official U-GO brand package (Saboteur, 2024) and the live site, ugouniversity.org.
 
 ---
 
@@ -49,18 +43,18 @@ Everything here is derived from the official U-GO brand package (Saboteur, 2024)
 
 **Overall feeling:** editorial, optimistic, human, print-rooted. A calm beige canvas, deep teal ink, and bursts of watercolour colour through the profile silhouettes. Lots of air.
 
-**Colour** (full tokens in `tokens/colors.css`):
+**Colour** (full tokens in `brand/colors.css`):
 - **Canvas** is **Beige `#F1F1EC`** (`--surface-page`) — the default background for almost everything. White (`#FFFFFF`) for cards and alternating sections.
 - **Primary ink** is **Royal Blue `#1C3B40`** (a deep teal-navy) — headlines, nav, logo, body emphasis, and dark sections/footers.
 - **Eight campaign hues**, each with a vibrant ("light") and deep ("dark") cut: Royal Blue, Dark Teal `#4F9EB0`, Light Teal `#80DEBA`, Dark Green/olive `#6B7D08`, Lime `#BAD626`, Orange `#FFBA29`, Cornflower `#94B2FF`, Pink `#FFA3E5`. Used full-strength as the watercolour fill of silhouettes, chart/legend colours and tags — **not** as large flat backgrounds (except Royal Blue).
 - Body text is a softened near-black `#34403F`.
 
-**Type** (full tokens in `tokens/typography.css`): three voices, never more.
+**Type** (full tokens in `brand/typography.css`): three voices, never more.
 - **MD IO** (Black/Ultra) — display. UPPERCASE, tight. Headlines, nav, labels, stat numbers, buttons, the wordmark.
 - **Simula** (Book + Italic) — serif. Editorial headlines, the tagline, scholar names, pull quotes. Provides the warmth that MD IO doesn't.
 - **David** (ExtraLight default, Regular for emphasis/small sizes) — humanist sans body copy.
 
-**The motif — profile silhouettes.** The brand's signature is a **watercolour-textured profile silhouette of a young woman**, facing right. They come in every campaign hue (`assets/profiles/p01–p05.png`) and inverted/white (`assets/profiles/inv*.png`). Uses: overlap two facing each other (talent meeting opportunity); set a big stat number inside one; crop a scholar's photo into one; tint a slide with a faint oversized one. This is the #1 way to make something look U-GO.
+**The motif — profile silhouettes.** The brand's signature is a **watercolour-textured profile silhouette of a young woman**, facing right. They come in five campaign hues (`assets/profiles/p01–p05.png`) and white (`assets/profiles/inv02.png`, `inv06.png`, used faint on Royal Blue). Uses: overlap two facing each other (talent meeting opportunity); set a big stat number inside one; crop a scholar's photo into one; tint a slide with a faint oversized one. This is the #1 way to make something look U-GO.
 
 **Backgrounds & texture:** flat beige or white, *or* watercolour. Real watercolour washes (`assets/textures/`) carry a subtle paper grain — never use a CSS gradient where a watercolour wash belongs. No photographic backgrounds except full-bleed documentary hero photos (warm, real, on-location — never stocky).
 
@@ -91,37 +85,15 @@ U-GO's brand package is **illustration-led, not icon-led** — there is no propr
 
 ---
 
-## What's in here (index / manifest)
-
-**Root**
-- `styles.css` — the single entry point consumers link. `@import`s everything below.
-- `readme.md` — this guide. · `SKILL.md` — Agent-Skill wrapper for Claude Code.
-
-**`tokens/`** (all `@import`ed by `styles.css`)
-- `fonts.css` — `@font-face` for MD IO, MD IO Ultra, Simula, David.
-- `colors.css` — palette + semantic aliases (`--surface-*`, `--text-*`, `--accent`, `--cat-1…8`).
-- `typography.css` — font stacks, scale, weights, helper classes (`.ugo-display`, `.ugo-serif`, `.ugo-body`, `.ugo-eyebrow`).
-- `spacing.css` — spacing scale, radii, shadows, motion easings/durations.
-- `base.css` — reset + on-brand element defaults (beige body, MD IO headings).
-
-**`components/`** — reusable React primitives (`export function`, styled via tokens)
-- `core/` — **Button**, **Tag**, **Card**, **Eyebrow**, **Field**.
-- `brand/` — **StatSilhouette** (number in a silhouette), **ScholarCard** (photo cropped to silhouette).
-- Each has `.jsx`, `.d.ts` (props + `@startingPoint`), `.prompt.md` (usage), and the directory's `*.card.html` specimen.
-
-**`ui_kits/website/`** — click-through recreation of ugouniversity.org: `index.html` (router) + `Header/Footer/HomeScreen/ScholarsScreen/DonateScreen.jsx`. See its `README.md`.
-
-**`ui_kits/slides/`** — sample 1280×720 deck slides: Title, Section divider, Impact stats, Big quote, Scholar feature.
-
-**`guidelines/`** — foundation specimen cards shown in the Design System tab (Type, Colors, Spacing, Brand).
-
-**`assets/`** — `fonts/`, `logos/`, `profiles/` (p01–p05 colour + inv white), `textures/` (watercolour), `stickers/`, `photos/` (placeholder portraits — swap for real ones).
-
-> **Using the components:** in a card or kit HTML, load `_ds_bundle.js` (auto-generated) and read `const { Button, StatSilhouette, … } = window.UGOUniversityDesignSystem_5d28d6`. In raw HTML/CSS work, just link `styles.css` and use the tokens + helper classes directly (the slides do this).
+## What's in this skill
+- `SKILL.md`: rules and workflows (read first).
+- `brand/styles.css`: imports `fonts.css`, `colors.css`, `typography.css`, `spacing.css` and `base.css`; link it from any HTML page.
+- `assets/`: `fonts/` (woff2), `logos/` (`*_trim.png` have no transparent margin), `profiles/` (p01–p05 colour; inv02/inv06 white, use faint), `textures/`, `stickers/`, `photos/` (placeholders only).
+- `examples/`: 1280×720 reference slides (Title, Section, Stat, Quote, Scholar).
+- `scripts/ugo_pptx.py`: PowerPoint builder. `scripts/inline_html.py`: makes one self-contained HTML file.
 
 ---
 
 ## Caveats
-- The **brand guidelines PDF** and the live site's **hero photo** and **watercolour world map** exceeded the copy limit / weren't in the asset package — placeholders are clearly marked in the website kit. Drop real imagery into `assets/photos/` & `assets/textures/` to finish those.
-- **Scholar portraits** are abstract duotone placeholders. Replace with real photography.
-- **Functional icons** use Lucide (CDN) as a documented substitution; the official package ships no icon set.
+- **Scholar portraits** in `assets/photos/` are abstract placeholders. Never put a real-sounding name or a quote next to them; use [SCHOLAR NAME] and [QUOTE] until the user supplies real, consented material.
+- **Functional icons** (if a UI needs them) use Lucide at a 2px stroke as a documented substitution; the official package has no icon set.

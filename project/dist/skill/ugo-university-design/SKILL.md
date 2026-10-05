@@ -22,7 +22,9 @@ Always deliver a finished FILE (.pptx, .html, .pdf, .docx, .png), not a descript
 
 ## Rules (non-negotiable)
 - **Colours only:** Beige `#F1F1EC` (default background), White `#FFFFFF`, Royal Blue `#1C3B40` (headings, logo, buttons, dark sections), body text `#34403F`, muted `#6F7A79`. Accents for shapes/highlights/charts only: Dark Teal `#4F9EB0`, Light Teal `#80DEBA`, Dark Green `#6B7D08`, Lime `#BAD626`, Orange `#FFBA29`, Cornflower `#94B2FF`, Pink `#FFA3E5`. No gradients. Backgrounds are Beige, White or Royal Blue.
-- **Three fonts only:** MD IO Black = headlines, labels, buttons, big numbers, ALWAYS UPPERCASE. Simula = editorial headlines, quotes, names, sentence case, often italic. David ExtraLight = body (Regular for small text/emphasis).
+- The CSS also defines deep shades (`--ugo-*-deep`, `--ugo-black`) and a hover tint. Use them only for text on light accent fills or for hover states, never as backgrounds.
+- **Three fonts only:** MD IO Black = headlines (MD IO Ultra is just its heaviest cut, for poster-size numbers), labels, buttons, big numbers, ALWAYS UPPERCASE. Simula = editorial headlines, quotes, names, sentence case, often italic. David ExtraLight = body (Regular for small text/emphasis).
+- **Stat numbers inside silhouettes:** Royal Blue numbers on the light silhouettes (p01 light teal, p02 orange, p03 cornflower, p05 pink); white numbers on p04 (dark teal).
 - **Motif:** use a watercolour profile silhouette on most pages/slides — overlapping pairs, a big stat inside one, or a large faint white one on Royal Blue. Never draw your own faces/people.
 - **Logo** on every deck/page (title + closing slide; site header/footer).
 - **Voice:** warm, dignified, optimistic; lead with talent, not pity; real numbers; no emoji, no exclamation marks, no hype. Never invent statistics; use [STAT] placeholders. Approved stats: 98% of U-GO scholars advance to the next grade · 90% of a woman's income is invested back into her family · 96% of women in Cambodia do not attend university · 48% of women in Nepal won't have access to a university education.
@@ -37,7 +39,7 @@ Fonts in PowerPoint: the script uses Arial Black / Georgia / Calibri Light by de
 ## Workflow: website / landing page / one-pager (HTML)
 1. The skill folder is read-only, so first copy it somewhere writable (e.g. `cp -r <skill folder> /tmp/ugo`). Write the page in `/tmp/ugo/examples/` so `../brand/styles.css` and `../assets/...` paths resolve. Use the CSS variables (`var(--ugo-royal-blue)`, `var(--font-display)`, etc.).
 2. Structure for a site: sticky beige header (logo, MD IO nav, Royal Blue pill "DONATE") → hero (eyebrow, Simula headline, body, two pill buttons, overlapping silhouettes) → white stats band (numbers inside silhouettes) → "WHERE WE WORK" country tags with coloured dots → "MEET THE SCHOLARS" (photo cropped into silhouette with CSS mask, Simula name, italic country, field) → Royal Blue CTA band → beige footer.
-3. Run `python /tmp/ugo/scripts/inline_html.py /tmp/ugo/examples/yourpage.html /mnt/user-data/outputs/yourpage.html` to embed fonts and images, then deliver that single file.
+3. Run `python /tmp/ugo/scripts/inline_html.py /tmp/ugo/examples/yourpage.html /mnt/user-data/outputs/yourpage.html` to embed fonts and images, then deliver that single file. The script shrinks images to at most 600px, so the file stays small enough to email (pass `--max-px 0` to keep full size).
 
 ## Workflow: PDF / poster / social image
 Build it as HTML (above) at the exact pixel size, inline it, then render to PDF/PNG (e.g. with playwright/chromium if available, otherwise deliver the HTML and say so). Social: one message, huge type, Beige or Royal Blue background, silhouette, logo.

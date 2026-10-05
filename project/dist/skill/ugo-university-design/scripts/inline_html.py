@@ -1,11 +1,15 @@
 """Make a U-GO HTML page fully self-contained (fonts, CSS, images embedded).
 
-    python inline_html.py input.html output.html
+    python inline_html.py input.html output.html [--max-px 600]
 
 Inlines <link rel="stylesheet"> (following @import), and converts url(...) and
 <img src>/<link rel=icon href> pointing at local files into base64 data URIs.
+Images are shrunk to at most --max-px on their longest side (default 600, 0 = keep)
+so the page stays small enough to email; this needs Pillow and is skipped without it.
 """
-import base64, mimetypes, os, re, sys
+import base64, io, mimetypes, os, re, sys
+
+MAX_PX = 600
 
 MIME = {".woff2": "font/woff2", ".woff": "font/woff", ".png": "image/png", ".jpg": "image/jpeg",
         ".jpeg": "image/jpeg", ".svg": "image/svg+xml", ".gif": "image/gif", ".webp": "image/webp"}
@@ -15,7 +19,27 @@ def data_uri(path):
     ext = os.path.splitext(path)[1].lower()
     mime = MIME.get(ext) or mimetypes.guess_type(path)[0] or "application/octet-stream"
     with open(path, "rb") as f:
-        return "data:%s;base64,%s" % (mime, base64.b64encode(f.read()).decode())
+        data = f.read()
+    if MAX_PX and ext in (".png", ".jpg", ".jpeg", ".webp"):
+        data = shrink(data, ext)
+    return "data:%s;base64,%s" % (mime, base64.b64encode(data).decode())
+
+
+def shrink(data, ext):
+    try:
+        from PIL import Image
+    except ImportError:
+        return data
+    im = Image.open(io.BytesIO(data))
+    if max(im.size) <= MAX_PX:
+        return data
+    im.thumbnail((MAX_PX, MAX_PX), Image.LANCZOS)
+    out = io.BytesIO()
+    if ext == ".png":
+        im.save(out, "PNG", optimize=True)
+    else:
+        im.convert("RGB").save(out, "JPEG", quality=85)
+    return out.getvalue() if out.tell() < len(data) else data
 
 
 def is_local(ref):
@@ -72,4 +96,9 @@ def main(src, dst):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    args = sys.argv[1:]
+    if "--max-px" in args:
+        i = args.index("--max-px")
+        MAX_PX = int(args[i + 1])
+        del args[i:i + 2]
+    main(args[0], args[1])
