@@ -1,25 +1,35 @@
-# CODING AGENTS: READ THIS FIRST
+# U-GO University: brand system, Claude skill and website
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+Built from the Claude Design handoff (`HANDOFF.md`, `chats/`). `project/` holds the design system and is the single source of truth.
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+| Path | What it is |
+|---|---|
+| `project/` | Design system: tokens (`styles.css` → `tokens/`), fonts, logos, silhouettes, React components, foundation cards, slide layouts, website UI kit. `project/readme.md` is the brand guide. |
+| `release/ugo-university-design.zip` | **The file to send colleagues.** A Claude skill: upload it under Customize → Skills. Setup steps are in `release/U-GO SETUP - read me first.txt`. |
+| `site/` | Production React + Vite build of ugouniversity.org (Home, Meet the Scholars, Donate). Imports components and tokens straight from `project/`. |
+| `tools/build_skill.py` | Smoke-tests the skill's PowerPoint and HTML scripts, then rebuilds the release zip. |
+| `tools/build_showcase.py` | Builds `showcase-dist/`, a static gallery of every card, slide and the website, ready for any static host. |
 
-## What you should do — IMPORTANT
+## Commands
 
-**Read the chat transcripts first.** There are 1 chat transcript(s) in `chats/`. The transcripts show the full back-and-forth between the user and the design assistant — they tell you **what the user actually wants** and **where they landed** after iterating. Don't skip them. The final HTML files are the output, but the chat is where the intent lives.
+```sh
+# Skill (needs python-pptx and Pillow)
+pip install python-pptx pillow
+python tools/build_skill.py            # -> release/ugo-university-design.zip
 
-**Find the primary design file under `project/` and read it top to bottom.** The chat transcripts will tell you which file the user was last iterating on. Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+# Website
+cd site && npm install
+npm run dev                            # local dev server
+npm run build                          # -> site/dist (static, hash routes, works on any host)
+python scripts/optimize_images.py      # after replacing an image in project/assets
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+# Showcase (after building the site)
+python tools/build_showcase.py         # -> showcase-dist/
+```
 
-## About the design files
-
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
-
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
-
-## Bundle contents
-
-- `README.md` — this file
-- `chats/` — conversation transcripts (read these!)
-- `project/` — the `U-GO  University Design System` project files (HTML prototypes, assets, components)
+## Known gaps
+- **Scholar portraits** are abstract placeholders, and the scholar names and quotes come from the design mockups. Confirm them with the charity, or replace them with real scholars' details and consent, before publishing.
+- **The watercolour region map** wasn't in the asset package. The "Where we work" panel shows the cornflower texture instead.
+- **Donate form** isn't connected to a payment provider. "100% of your gift funds scholarships" is copied from the mockup and needs checking before going live.
+- **Fonts:** MD IO, Simula and David are licensed fonts and ship in the zip, the site and the showcase. Check the licence covers sharing and web hosting.
+- **PowerPoint** uses Arial Black, Georgia and Calibri Light by default, because .pptx files can't embed the web fonts. Set `UGO_BRAND_FONTS=1` for machines that have the brand fonts installed.

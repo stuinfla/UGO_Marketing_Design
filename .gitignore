@@ -1,0 +1,4 @@
+node_modules/
+site/dist/
+showcase-dist/
+__pycache__/

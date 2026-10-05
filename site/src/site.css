@@ -1,0 +1,109 @@
+/* Site layout. Brand tokens come from @ds/styles.css; this file only handles
+   page structure and the breakpoints the prototype didn't define. */
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
+#root { min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1; }
+
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: clamp(20px, 5vw, 56px); padding-right: clamp(20px, 5vw, 56px); }
+.band-white { background: var(--ugo-white); }
+.band-ink { background: var(--ugo-royal-blue); }
+
+/* ---- Header ---- */
+.site-header {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 16px clamp(20px, 5vw, 56px);
+  background: rgba(241, 241, 236, 0.86);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-hairline);
+}
+.site-header .logo img { height: 30px; width: auto; }
+.site-nav { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 34px); }
+.nav-link {
+  font-family: var(--font-display); font-weight: 900; text-transform: uppercase;
+  font-size: 13px; letter-spacing: 0.04em; white-space: nowrap;
+  color: var(--text-primary); text-decoration: none;
+}
+.nav-link:hover { text-decoration: none; color: var(--ugo-dark-teal); }
+.nav-link[aria-current="page"] { color: var(--ugo-dark-teal); }
+.menu-toggle { display: none; }
+.mobile-nav { display: none; }
+
+/* ---- Home ---- */
+.hero {
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 48px; align-items: center;
+  padding-top: clamp(48px, 7vw, 96px); padding-bottom: clamp(40px, 6vw, 80px);
+}
+.hero-art { position: relative; display: flex; justify-content: center; align-items: flex-end; min-height: 320px; }
+.hero-art img { position: relative; width: auto; flex: 0 0 auto; }
+.hero-art .a { height: 270px; margin-right: -26%; z-index: 1; }
+.hero-art .b { height: 340px; z-index: 2; }
+.hero-art .c { height: 250px; margin-left: -24%; z-index: 1; }
+
+.stats { display: flex; gap: 24px; justify-content: space-around; flex-wrap: wrap; }
+.where { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+.where-map {
+  position: relative; border-radius: var(--radius-xl); overflow: hidden;
+  background: var(--ugo-white); aspect-ratio: 16 / 10;
+  display: flex; align-items: center; justify-content: center;
+}
+.where-map img { width: 120%; height: 120%; max-width: none; object-fit: cover; opacity: 0.5; }
+.where-list { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; }
+.scholar-row { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+
+/* ---- Scholars ---- */
+.scholar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: clamp(28px, 3vw, 48px); }
+
+/* ---- Donate ---- */
+.donate { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+.donate-card { position: sticky; top: 90px; }
+.toggle-row { display: flex; gap: 8px; margin-bottom: 18px; }
+.preset-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+.choice {
+  cursor: pointer; color: var(--text-primary); background: transparent;
+  border: 1.5px solid var(--border-strong);
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.choice-freq {
+  flex: 1; padding: 11px 0; border-radius: var(--radius-pill);
+  font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: 12px; letter-spacing: 0.08em;
+}
+.choice-freq[aria-pressed="true"] { border-color: var(--ugo-royal-blue); background: var(--ugo-royal-blue); color: var(--ugo-beige); }
+.choice-amount { padding: 14px 0; border-radius: var(--radius-sm); font-family: var(--font-display); font-weight: 900; font-size: 16px; }
+.choice-amount[aria-pressed="true"] { border-color: var(--ugo-dark-teal); background: var(--ugo-light-teal); }
+
+/* ---- Footer ---- */
+.site-footer { background: var(--surface-page); border-top: 1px solid var(--border-hairline); padding: 56px clamp(20px, 5vw, 56px) 36px; }
+.site-footer .top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; }
+.site-footer .logo { height: 40px; width: auto; }
+.footer-link { font-family: var(--font-body); font-weight: 400; font-size: 15px; color: var(--text-body); text-decoration: none; }
+
+/* ---- Breakpoints ---- */
+@media (max-width: 900px) {
+  .site-nav .nav-link { display: none; }
+  .menu-toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: none; border: 0; padding: 8px 4px; cursor: pointer;
+    font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: 13px; letter-spacing: 0.04em;
+    color: var(--text-primary);
+  }
+  .mobile-nav {
+    display: flex; flex-direction: column; gap: 18px;
+    position: absolute; top: 100%; left: 0; right: 0;
+    padding: 20px clamp(20px, 5vw, 56px) 28px;
+    background: var(--surface-page); border-bottom: 1px solid var(--border-hairline);
+    box-shadow: var(--shadow-md);
+  }
+  .mobile-nav[hidden] { display: none; }
+  .hero, .where, .donate { grid-template-columns: 1fr; }
+  .hero-art { min-height: 0; }
+  .hero-art .a { height: 200px; } .hero-art .b { height: 250px; } .hero-art .c { height: 185px; }
+  .donate { gap: 32px; }
+  .donate-card { position: static; }
+}
+@media (max-width: 480px) {
+  .hero-art .a { height: 150px; } .hero-art .b { height: 190px; } .hero-art .c { height: 140px; }
+  .where-list { grid-template-columns: 1fr 1fr; }
+}

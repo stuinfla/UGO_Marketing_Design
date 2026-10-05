@@ -16,7 +16,8 @@ export function Field({
   ...rest
 }) {
   const [focus, setFocus] = React.useState(false);
-  const fid = id || `f-${Math.random().toString(36).slice(2, 8)}`;
+  const autoId = React.useId();
+  const fid = id || autoId;
 
   const control = {
     width: "100%",
