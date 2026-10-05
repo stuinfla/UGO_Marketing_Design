@@ -1,0 +1,316 @@
+/* U-GO University brand stylesheet: https://cdn.jsdelivr.net/gh/stuinfla/UGO_Marketing_Design@main/kit/ugo.css */
+/* ============================================================
+   U-GO University — Webfonts
+   MD IO  → display / headlines / nav / logo (ALL CAPS, chunky grotesque)
+   Simula → editorial serif headlines, scholar names, pull quotes
+   David  → body copy (humanist sans, very light)
+   ============================================================ */
+
+/* ---- MD IO (display) ---- */
+@font-face {
+  font-family: "MD IO";
+  src: url("https://cdn.jsdelivr.net/gh/stuinfla/UGO_Marketing_Design@main/project/dist/skill/ugo-university-design/assets/fonts/MDIO-Black.woff2") format("woff2");
+  font-weight: 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  /* Ultra is the heaviest cut — used for the biggest stat numbers / poster headlines */
+  font-family: "MD IO Ultra";
+  src: url("https://cdn.jsdelivr.net/gh/stuinfla/UGO_Marketing_Design@main/project/dist/skill/ugo-university-design/assets/fonts/MDIO-Ultra.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---- Simula (serif) ---- */
+@font-face {
+  font-family: "Simula";
+  src: url("https://cdn.jsdelivr.net/gh/stuinfla/UGO_Marketing_Design@main/project/dist/skill/ugo-university-design/assets/fonts/Simula-Book.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Simula";
+  src: url("https://cdn.jsdelivr.net/gh/stuinfla/UGO_Marketing_Design@main/project/dist/skill/ugo-university-design/assets/fonts/Simula-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ---- David (body) ---- */
+@font-face {
+  font-family: "David";
+  src: url("https://cdn.jsdelivr.net/gh/stuinfla/UGO_Marketing_Design@main/project/dist/skill/ugo-university-design/assets/fonts/David-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "David";
+  src: url("https://cdn.jsdelivr.net/gh/stuinfla/UGO_Marketing_Design@main/project/dist/skill/ugo-university-design/assets/fonts/David-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================
+   U-GO University — Color tokens
+   Source of truth: U-Go Colour Palette (Saboteur, 2024)
+   Every hue ships in a vibrant ("light palette") cut and a
+   deep ("dark palette") cut. Beige is the canonical canvas.
+   ============================================================ */
+:root {
+  /* ---- Canvas ---- */
+  --ugo-beige:            #f1f1ec;   /* Background Beige — the default page surface */
+  --ugo-white:           #ffffff;
+  --ugo-black:           #14201f;   /* near-black ink, warmed toward the teal */
+
+  /* ---- Vibrant palette (the "light" cuts) ---- */
+  --ugo-royal-blue:      #1c3b40;   /* deep teal-navy — PRIMARY brand ink */
+  --ugo-dark-teal:       #4f9eb0;
+  --ugo-light-teal:      #80deba;
+  --ugo-dark-green:      #6b7d08;   /* olive */
+  --ugo-lime:            #bad626;
+  --ugo-orange:          #ffba29;
+  --ugo-cornflower:      #94b2ff;
+  --ugo-pink:            #ffa3e5;
+
+  /* ---- Deep palette (the "dark" cuts — backgrounds, deep type) ---- */
+  --ugo-royal-blue-deep: #12213b;
+  --ugo-dark-teal-deep:  #1c3b40;
+  --ugo-light-teal-deep: #0a2e1c;
+  --ugo-dark-green-deep: #292b08;
+  --ugo-lime-deep:       #242905;
+  --ugo-orange-deep:     #30210a;
+  --ugo-cornflower-deep: #262b3b;
+  --ugo-pink-deep:       #331c2e;
+
+  /* ============================================================
+     Semantic aliases — reference THESE in product code.
+     ============================================================ */
+  --surface-page:        var(--ugo-beige);
+  --surface-card:        var(--ugo-white);
+  --surface-ink:         var(--ugo-royal-blue);   /* dark sections / footers */
+  --surface-sunken:      #e7e7e0;                  /* beige, one step down */
+
+  --text-primary:        var(--ugo-royal-blue);   /* headings, logo, nav */
+  --text-body:           #34403f;                  /* David body copy */
+  --text-muted:          #6f7a79;
+  --text-on-dark:        var(--ugo-beige);
+  --text-on-color:       var(--ugo-royal-blue);
+
+  --accent:              var(--ugo-royal-blue);    /* primary action */
+  --accent-hover:        #12262a;
+  --accent-contrast:     var(--ugo-beige);
+
+  --border-hairline:     rgba(28, 59, 64, 0.14);
+  --border-strong:       rgba(28, 59, 64, 0.30);
+  --focus-ring:          var(--ugo-dark-teal);
+
+  /* Status (derived from brand hues, never invented) */
+  --status-go:           var(--ugo-dark-green);
+  --status-warn:         var(--ugo-orange);
+  --status-info:         var(--ugo-dark-teal);
+
+  /* The eight "campaign" hues, exposed as a cycle for charts,
+     country legends, scholar tags, etc. */
+  --cat-1: var(--ugo-pink);
+  --cat-2: var(--ugo-light-teal);
+  --cat-3: var(--ugo-dark-teal);
+  --cat-4: var(--ugo-lime);
+  --cat-5: var(--ugo-orange);
+  --cat-6: var(--ugo-cornflower);
+  --cat-7: var(--ugo-dark-green);
+  --cat-8: var(--ugo-royal-blue);
+}
+
+/* ============================================================
+   U-GO University — Typography tokens
+   Three voices:
+   • MD IO   — display. ALL CAPS, tight tracking. Headlines, nav,
+               logo, big stat numbers, section labels.
+   • Simula  — serif. Sentence case (often italic). Editorial
+               headlines, scholar names, pull quotes.
+   • David   — body. Humanist sans, light weights. Paragraphs, UI.
+   ============================================================ */
+:root {
+  --font-display: "MD IO", "Arial Narrow", system-ui, sans-serif;
+  --font-display-ultra: "MD IO Ultra", "MD IO", system-ui, sans-serif;
+  --font-serif:   "Simula", Georgia, "Times New Roman", serif;
+  --font-body:    "David", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* ---- Type scale (rem, 1rem = 16px) ---- */
+  --text-xs:    0.75rem;   /* 12px — fine print, captions */
+  --text-sm:    0.875rem;  /* 14px — UI labels, meta */
+  --text-base:  1rem;      /* 16px — body */
+  --text-md:    1.125rem;  /* 18px — lead body */
+  --text-lg:    1.375rem;  /* 22px */
+  --text-xl:    1.75rem;   /* 28px */
+  --text-2xl:   2.25rem;   /* 36px */
+  --text-3xl:   3rem;      /* 48px */
+  --text-4xl:   4rem;      /* 64px */
+  --text-5xl:   5.5rem;    /* 88px — hero stat numbers */
+  --text-6xl:   8rem;      /* 128px — poster scale */
+
+  /* ---- Weights ---- */
+  --weight-body:       200;  /* David ExtraLight — the brand default for copy */
+  --weight-body-solid: 400;  /* David Regular — emphasis / small sizes */
+  --weight-serif:      400;
+  --weight-display:    900;  /* MD IO Black */
+
+  /* ---- Line heights ---- */
+  --leading-tight:  0.98;  /* display headlines */
+  --leading-snug:   1.12;  /* serif headlines */
+  --leading-body:   1.55;  /* paragraphs */
+
+  /* ---- Tracking ---- */
+  --tracking-display: 0.005em;  /* MD IO is already tight; barely positive */
+  --tracking-label:   0.12em;   /* spaced small-caps nav / eyebrows */
+  --tracking-body:    0;
+}
+
+/* ============================================================
+   Optional helper classes — products may use these directly
+   or just read the variables above.
+   ============================================================ */
+.ugo-display {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  text-transform: uppercase;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-primary);
+}
+.ugo-eyebrow {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+.ugo-serif {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-serif);
+  line-height: var(--leading-snug);
+  color: var(--text-primary);
+}
+.ugo-serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  line-height: var(--leading-snug);
+  color: var(--text-primary);
+}
+.ugo-body {
+  font-family: var(--font-body);
+  font-weight: var(--weight-body);
+  line-height: var(--leading-body);
+  color: var(--text-body);
+}
+
+/* ============================================================
+   U-GO University — Spacing, radii, shadows, motion
+   The brand is print-rooted: generous margins, soft edges,
+   restrained shadows. Motion is gentle (fades / ease-out),
+   never bouncy.
+   ============================================================ */
+:root {
+  /* ---- Spacing scale (8px base) ---- */
+  --space-0:   0;
+  --space-1:   0.25rem;  /* 4 */
+  --space-2:   0.5rem;   /* 8 */
+  --space-3:   0.75rem;  /* 12 */
+  --space-4:   1rem;     /* 16 */
+  --space-5:   1.5rem;   /* 24 */
+  --space-6:   2rem;     /* 32 */
+  --space-8:   3rem;     /* 48 */
+  --space-10:  4rem;     /* 64 */
+  --space-12:  6rem;     /* 96 */
+  --space-16:  8rem;     /* 128 */
+
+  --container:     1200px;  /* max content width */
+  --container-narrow: 720px; /* reading measure for prose */
+  --gutter:        clamp(1.25rem, 5vw, 4rem); /* @kind spacing */
+
+  /* ---- Radii — soft, never pill-y on big surfaces ---- */
+  --radius-xs:  4px;
+  --radius-sm:  8px;
+  --radius-md:  14px;
+  --radius-lg:  22px;
+  --radius-xl:  32px;
+  --radius-pill: 999px;   /* buttons, tags, chips */
+
+  /* ---- Shadows — quiet, warm-tinted, low spread ---- */
+  --shadow-sm:  0 1px 2px rgba(28, 59, 64, 0.06);
+  --shadow-md:  0 6px 20px rgba(28, 59, 64, 0.08);
+  --shadow-lg:  0 18px 48px rgba(28, 59, 64, 0.12);
+  --shadow-focus: 0 0 0 3px rgba(79, 158, 176, 0.45);
+
+  /* ---- Motion ---- */
+  --ease-out:   cubic-bezier(0.22, 0.61, 0.36, 1); /* @kind other */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1); /* @kind other */
+  --dur-fast:   140ms; /* @kind other */
+  --dur-base:   240ms; /* @kind other */
+  --dur-slow:   480ms; /* @kind other */
+}
+
+/* ============================================================
+   U-GO University — Base reset & element defaults
+   Sets the beige canvas, David body copy, and sensible
+   defaults so any product starts on-brand.
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-weight: var(--weight-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headlines default to MD IO display, uppercase */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 0.4em;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  text-transform: uppercase;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-primary);
+}
+h1 { font-size: var(--text-3xl); }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-xl); }
+
+p { margin: 0 0 1em; max-width: 68ch; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+strong, b { font-weight: var(--weight-body-solid); }
+
+img { max-width: 100%; display: block; }
+
+::selection { background: var(--ugo-light-teal); color: var(--ugo-royal-blue); }
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--radius-xs);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

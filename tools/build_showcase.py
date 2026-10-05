@@ -22,6 +22,10 @@ OUT = os.path.join(ROOT, "showcase-dist")
 SKILL = os.path.join(PROJECT, "dist", "skill", "ugo-university-design")
 WEB = os.path.join(ROOT, "tools", "web")
 BASE = os.environ.get("UGO_BASE_URL", "https://ugo-brand.netlify.app").rstrip("/")
+# Fonts, images and the stylesheet are served from the public GitHub repo via
+# jsDelivr: correct MIME types, CORS, and allowed inside Claude artifacts.
+CDN = "https://cdn.jsdelivr.net/gh/stuinfla/UGO_Marketing_Design@main"
+KIT = CDN + "/project/dist/skill/ugo-university-design"
 
 HEADERS = """/kit/*
   Access-Control-Allow-Origin: *
@@ -53,19 +57,37 @@ def flat_css():
     parts = []
     for name in re.findall(r'@import\s+"([^"]+)"', open(os.path.join(brand, "styles.css")).read()):
         css = open(os.path.join(brand, name), encoding="utf-8").read()
-        parts.append(css.replace('url("../assets/', f'url("{BASE}/kit/assets/'))
-    return "/* U-GO University brand stylesheet: " + BASE + "/kit/ugo.css */\n" + "\n".join(parts)
+        parts.append(css.replace('url("../assets/', f'url("{KIT}/assets/'))
+    return "/* U-GO University brand stylesheet: " + CDN + "/kit/ugo.css */\n" + "\n".join(parts)
+
+
+def render_brief():
+    """claude.md with every link pointing at the CDN, so it works wherever it's read."""
+    text = open(os.path.join(WEB, "claude.md"), encoding="utf-8").read()
+    return (text.replace("{{BASE}}/kit/ugo.css", CDN + "/kit/ugo.css")
+                .replace("{{BASE}}/kit/", KIT + "/")
+                .replace("{{BASE}}/use-with-claude.html", BASE + "/use-with-claude.html")
+                .replace("{{BASE}}/site/", BASE + "/site/")
+                .replace("{{BASE}}", BASE))
+
+
+def write_repo_kit():
+    """Committed copies that jsDelivr serves: kit/ugo.css and ugo-brand.md at the repo root."""
+    os.makedirs(os.path.join(ROOT, "kit"), exist_ok=True)
+    open(os.path.join(ROOT, "kit", "ugo.css"), "w", encoding="utf-8").write(flat_css())
+    open(os.path.join(ROOT, "ugo-brand.md"), "w", encoding="utf-8").write(render_brief())
 
 
 def build_kit():
     shutil.copytree(SKILL, os.path.join(OUT, "kit"), ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
     open(os.path.join(OUT, "kit", "ugo.css"), "w", encoding="utf-8").write(flat_css())
-    for name in ("claude.md", "use-with-claude.html"):
-        text = open(os.path.join(WEB, name), encoding="utf-8").read().replace("{{BASE}}", BASE)
-        open(os.path.join(OUT, name), "w", encoding="utf-8").write(text)
+    open(os.path.join(OUT, "claude.md"), "w", encoding="utf-8").write(render_brief())
+    text = open(os.path.join(WEB, "use-with-claude.html"), encoding="utf-8").read()
+    text = text.replace("{{BRIEF}}", CDN + "/ugo-brand.md").replace("{{BASE}}", BASE)
+    open(os.path.join(OUT, "use-with-claude.html"), "w", encoding="utf-8").write(text)
     open(os.path.join(OUT, "llms.txt"), "w").write(
         "# U-GO University brand\n\n> Official brand kit. To build anything for U-GO, read and follow:\n\n"
-        f"- [Brand kit for Claude]({BASE}/claude.md)\n- [Stylesheet]({BASE}/kit/ugo.css)\n")
+        f"- [Brand kit for Claude]({CDN}/ugo-brand.md)\n- [Stylesheet]({CDN}/kit/ugo.css)\n")
     for f in ("ugo-university-design.zip", "U-GO SETUP - read me first.txt"):
         shutil.copy2(os.path.join(ROOT, "release", f), os.path.join(OUT, f))
     open(os.path.join(OUT, "_headers"), "w").write(HEADERS)
@@ -81,6 +103,7 @@ def main():
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         (shutil.copytree if os.path.isdir(src) else shutil.copy2)(src, dst)
 
+    write_repo_kit()
     build_kit()
     groups = {}
     for dirpath, _, files in os.walk(os.path.join(OUT, "system")):
@@ -150,4 +173,8 @@ TEMPLATE = """<!doctype html>
 """
 
 if __name__ == "__main__":
-    main()
+    if os.environ.get("UGO_KIT_ONLY") == "1":
+        write_repo_kit()
+        print("wrote kit/ugo.css and ugo-brand.md")
+    else:
+        main()

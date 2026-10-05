@@ -4,6 +4,12 @@ The U-GO University brand, in one place: design branding guidelines to be used f
 
 Anyone with access to this repository has everything. No Claude workspace or organisation account is needed.
 
+## The fastest way: paste this into any Claude chat
+
+> Read https://cdn.jsdelivr.net/gh/stuinfla/UGO_Marketing_Design@main/ugo-brand.md and follow the U-GO brand rules there exactly, using the hosted fonts, logo and silhouette images it links to. Then build me: **[a one-page landing page / a 6-slide PowerPoint / a donor email / …]**
+
+No setup, no special plan, no workspace. That link is the full brand brief ([`ugo-brand.md`](ugo-brand.md)), and every font, logo and silhouette it mentions is served publicly from this repo. For finished PowerPoint and Word files, add the skill once (first row below).
+
 ## How to use it: pick the line that fits you
 
 | You use… | Do this |
